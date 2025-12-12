@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Good Driver Mutuality | A Club for Good Drivers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-primary: #00A651;
+      --green-dark: #008542;
+      --green-light: #E8F5E9;
+      --black: #1A1A1A;
+      --gray-dark: #4A4A4A;
+      --gray-medium: #888888;
+      --gray-light: #F5F5F5;
+      --white: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--black);
+      background: var(--white);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    /* Header */
+    header {
+      background: var(--green-primary);
+      padding: 16px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-cta {
+      background: var(--white);
+      color: var(--green-primary);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--green-light);
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--green-primary);
+      color: var(--white);
+      padding: 160px 0 100px;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      margin-bottom: 2rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-emphasis {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(255,255,255,0.3);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-block;
+      background: var(--white);
+      color: var(--green-primary);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 40px;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin-top: 2rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-green {
+      background: var(--green-primary);
+      color: var(--white);
+    }
+
+    .btn-green:hover {
+      background: var(--green-dark);
+    }
+
+    /* Promise Section */
+    .promise {
+      background: var(--white);
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .promise-text h2 {
+      color: var(--green-primary);
+    }
+
+    .promise-list {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .promise-list li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .promise-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green-primary);
+      font-weight: bold;
+    }
+
+    .promise-summary {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--green-dark);
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--green-light);
+    }
+
+    /* Proof Section */
+    .proof {
+      background: var(--gray-light);
+    }
+
+    .proof h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-bottom: 4rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 4px solid var(--green-primary);
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: var(--green-primary);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      margin-top: 0.5rem;
+    }
+
+    .stat-note {
+      font-size: 0.75rem;
+      color: var(--gray-medium);
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+
+    .member-story {
+      background: var(--white);
+      padding: 3rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .member-story h3 {
+      color: var(--green-primary);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .week-breakdown {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: var(--gray-light);
+    }
+
+    .story-result {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .result-item {
+      padding: 1rem;
+    }
+
+    .result-label {
+      font-size: 0.8rem;
+      color: var(--gray-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .result-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--black);
+    }
+
+    .result-value.highlight {
+      color: var(--green-primary);
+    }
+
+    .transparency-note {
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      font-style: italic;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    /* Mechanism Section */
+    .mechanism {
+      background: var(--white);
+    }
+
+    .mechanism h2 {
+      color: var(--green-primary);
+      margin-bottom: 2.5rem;
+    }
+
+    .steps {
+      counter-reset: step;
+      max-width: 700px;
+    }
+
+    .step {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      counter-increment: step;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--green-primary);
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--green-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-number::before {
+      content: counter(step);
+    }
+
+    .step-content p {
+      margin: 0;
+    }
+
+    .bottom-line {
+      background: var(--green-light);
+      padding: 2rem;
+      margin-top: 3rem;
+      max-width: 700px;
+    }
+
+    .bottom-line p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .bottom-line strong {
+      color: var(--green-dark);
+    }
+
+    /* Preemption Section */
+    .preemption {
+      background: var(--green-primary);
+      color: var(--white);
+    }
+
+    .preemption h2 {
+      margin-bottom: 2.5rem;
+    }
+
+    .preemption-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .preemption-item {
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      margin-bottom: 2rem;
+    }
+
+    .preemption-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .preemption-item h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+      margin-bottom: 0.75rem;
+    }
+
+    .preemption-item p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .renewal-stat {
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 2px solid rgba(255,255,255,0.3);
+      text-align: center;
+    }
+
+    .renewal-stat .big-number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 4rem;
+      display: block;
+    }
+
+    .renewal-stat p {
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 1rem auto 0;
+    }
+
+    .renewal-stat .tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      opacity: 0.9;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--gray-light);
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .cta h2 {
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 1.25rem;
+      color: var(--gray-dark);
+      margin-bottom: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: var(--gray-medium);
+      padding: 40px 0;
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 0;
+      }
+
+      .promise-grid,
+      .preemption-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .story-result {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .step {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero {
+        padding: 140px 0 80px;
+        min-height: auto;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .stat-card {
+      animation: fadeInUp 0.6s ease-out backwards;
+    }
+
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">Good Driver</a>
+      <button class="nav-cta">Get Your Quote</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Good Driver</h1>
+        <p>Your rates went up again. You're not alone. Auto premiums are up 152% since 2020.</p>
+        <p>You haven't had an accident in years. Clean record. Safe car. You've done everything right.</p>
+        <p>You're not paying for your risk. You're paying for everyone else's accidents.</p>
+        <p class="hero-emphasis">That's the part that never sat right with us either.</p>
+        <a href="#quote" class="btn-primary">Get Your Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise">
+    <div class="container">
+      <div class="promise-grid">
+        <div class="promise-text">
+          <h2>A Club for Good Drivers</h2>
+          <p>GDM is a club. Good drivers who share verified repair costs.</p>
+          <p>You keep your liability insurance. That's the law, that's separate. GDM coordinates the rest:</p>
+          <ul class="promise-list">
+            <li>Repairs to your car</li>
+            <li>Theft</li>
+            <li>Weather damage</li>
+            <li>Vandalism</li>
+            <li>Glass</li>
+            <li>Roadside help</li>
+          </ul>
+          <p style="margin-top: 1.5rem;"><strong>No app tracking your speed. No telematics. We trust your record.</strong></p>
+        </div>
+        <div class="promise-summary">
+          <p>When something happens, members share the real cost. When nothing happens, you keep your money.</p>
+          <p style="margin-bottom: 0;"><strong>That's the whole idea.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof">
+    <div class="container">
+      <h2>Last Week Across All Members</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">$4.12</span>
+          <div class="stat-label">Average Share</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">847</span>
+          <div class="stat-label">Repair Events Shared</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">94%</span>
+          <div class="stat-label">Pool Strength</div>
+          <div class="stat-note">Share of members under their six-month cap</div>
+        </div>
+      </div>
+      <p class="transparency-note">These numbers are in the app. Updated live. Hidden from no one.</p>
+
+      <div class="member-story">
+        <h3>One Member's Six Months</h3>
+        <div class="week-breakdown">
+          Week 1: $5.95 &nbsp;·&nbsp; Week 2: $15.95 &nbsp;·&nbsp; Week 3: zero &nbsp;·&nbsp; Week 4: zero...
+        </div>
+        <div class="story-result">
+          <div class="result-item">
+            <div class="result-label">His Plan</div>
+            <div class="result-value">$1,000</div>
+          </div>
+          <div class="result-item">
+            <div class="result-label">He Paid</div>
+            <div class="result-value">$600</div>
+          </div>
+          <div class="result-item">
+            <div class="result-label">He Kept</div>
+            <div class="result-value highlight">$400</div>
+          </div>
+        </div>
+        <p class="transparency-note">That's what happened for him. Yours depends on what actually happens.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mechanism">
+    <div class="container">
+      <h2>How It Works</h2>
+      <p style="font-size: 1.15rem; max-width: 700px; margin-bottom: 2.5rem;">Think of it like crowdfunding, but structured. Everyone participates. When someone in the club has a verified repair, members share a small portion that week. When nothing happens, nothing comes out.</p>
+      <h3 style="color: var(--green-primary); margin-bottom: 1.5rem;">Rules keep it fair:</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <p>You keep your liability insurance. Required. Separate.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <p>You get a quote for your six-month plan. Based on your car and history.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <p>You pay about 20% upfront. Service fee.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <p>The rest stays with you. When repairs happen, a share comes out.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <p>Weekly cap. Six-month cap.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-line">
+        <p>Worst case: you have a repair event, pay your full share. That's roughly what you'd have paid a regular insurer anyway.</p>
+        <p style="margin-top: 1rem; margin-bottom: 0;"><strong>Difference is, you only pay that if something actually happens.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="preemption">
+    <div class="container">
+      <h2>If You Need Us</h2>
+      <div class="preemption-grid">
+        <div>
+          <div class="preemption-item">
+            <h3>You Call</h3>
+            <p>You get a person. Not a recording, not a maze. A person.</p>
+          </div>
+          <div class="preemption-item">
+            <h3>Towing & Rental</h3>
+            <p>We help with towing. We set up a rental if your plan includes it.</p>
+          </div>
+        </div>
+        <div>
+          <div class="preemption-item">
+            <h3>Repairs</h3>
+            <p>We connect you with one of 5,000+ shops that stand behind their work.</p>
+          </div>
+          <div class="preemption-item">
+            <h3>Total Loss</h3>
+            <p>We use the same valuation tools the big insurers use. We pull your original window sticker.</p>
+          </div>
+        </div>
+      </div>
+      <p style="text-align: center; opacity: 0.9; margin-top: 2rem;">You see every estimate, invoice, and photo in the app. No chasing. No wondering.</p>
+
+      <div class="renewal-stat">
+        <span class="big-number">80%</span>
+        <p>of members who have a repair event and pay their full share renew.</p>
+        <p class="tag">They saw how it works. They stayed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="quote">
+    <div class="container">
+      <h2>Two Minutes. See Your Quote.</h2>
+      <p>No commitment. Just a number you can hold up next to what you're paying now.</p>
+      <a href="#" class="btn-primary btn-green">Get Your Quote</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>GDM is a member-owned club, not an insurance company.</p>
+      <p>You keep your state-required liability insurance. GDM coordinates repairs through cost-sharing visible in the app.</p>
+      <p>Members share verified repair costs subject to program terms.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
