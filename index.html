@@ -1,825 +1,261 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Good Driver Club | It's Not Insurance. It's a Club.</title>
+  <title>Good Driver Club</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green-primary: #00A651;
-      --green-dark: #008542;
-      --green-light: #E8F5E9;
-      --black: #1A1A1A;
-      --gray-dark: #4A4A4A;
-      --gray-medium: #888888;
-      --gray-light: #F5F5F5;
+      --navy: #1E3A5F;
+      --navy-light: #2A4A73;
+      --navy-dark: #152942;
+      --cream: #F8F6F1;
+      --cream-dark: #EDE9E0;
+      --sage: #7D9B84;
+      --sage-light: #9BB5A1;
+      --sage-muted: #E8F0EA;
+      --charcoal: #2D2D2D;
+      --amber: #C5873D;
       --white: #FFFFFF;
-      --navy: #1a3a4a;
-      --amber: #D97706;
-      --amber-light: #FEF3C7;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.7;
-      color: var(--black);
-      background: var(--white);
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      text-transform: uppercase;
-    }
-
-    h2 {
-      font-size: clamp(1.5rem, 4vw, 2.25rem);
-      margin-bottom: 1.5rem;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    section {
-      padding: 80px 0;
-    }
-
-    /* Header */
-    header {
-      background: var(--green-primary);
-      padding: 16px 0;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 0.9rem;
-      color: var(--white);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .nav-cta {
-      background: var(--white);
-      color: var(--green-primary);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.875rem;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-
-    .nav-cta:hover {
-      background: var(--green-light);
-    }
-
-    /* Hero */
-    .hero {
-      background: var(--green-primary);
-      color: var(--white);
-      padding: 140px 0 80px;
-    }
-
-    .hero-content {
-      max-width: 700px;
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      opacity: 0.95;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 {
-      margin-top: 2rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-tagline {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      opacity: 0.9;
-      margin-bottom: 2rem;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--white);
-      color: var(--green-primary);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 16px 40px;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      margin-top: 1rem;
-    }
-
-    .btn-primary:hover {
-      background: var(--green-light);
-      transform: translateY(-2px);
-    }
-
-    .btn-green {
-      background: var(--green-primary);
-      color: var(--white);
-    }
-
-    .btn-green:hover {
-      background: var(--green-dark);
-    }
-
-    /* Promise */
-    .promise {
-      background: var(--white);
-      padding: 80px 0;
-    }
-
-    .promise h2 {
-      color: var(--green-primary);
-    }
-
-    .promise-content {
-      max-width: 700px;
-    }
-
-    .promise-list {
-      list-style: none;
-      margin: 1.5rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 2rem;
-    }
-
-    .promise-list li {
-      position: relative;
-      padding-left: 1.5rem;
-    }
-
-    .promise-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--green-primary);
-      font-weight: bold;
-    }
-
-    .promise-note {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--gray-dark);
-      margin-top: 1.5rem;
-    }
-
-    .referral-note {
-      background: var(--green-light);
-      padding: 1.25rem 1.5rem;
-      margin-top: 2rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border-left: 4px solid var(--green-primary);
-    }
-
-    /* Proof Stats */
-    .proof {
-      background: var(--gray-light);
-      padding: 80px 0;
-    }
-
-    .proof h2 {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-      margin-bottom: 3rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .stat-card {
-      background: var(--white);
-      padding: 2rem;
-      text-align: center;
-      border-bottom: 4px solid var(--green-primary);
-    }
-
-    .stat-number {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 2.5rem;
-      color: var(--green-primary);
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--gray-dark);
-      margin-top: 0.5rem;
-    }
-
-    .stat-context {
-      font-size: 0.8rem;
-      color: var(--gray-medium);
-      margin-top: 0.25rem;
-    }
-
-    .proof-note {
-      text-align: center;
-      color: var(--gray-dark);
-      font-size: 0.95rem;
-    }
-
-    /* Receipt */
-    .receipt-section {
-      background: var(--white);
-      padding: 80px 0;
-    }
-
-    .receipt-section h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .receipt-intro {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 3rem;
-      color: var(--gray-dark);
-    }
-
-    .receipts-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      max-width: 850px;
-      margin: 0 auto;
-    }
-
-    .receipt-wrapper {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .receipt {
-      background: var(--gray-light);
-      border: 2px solid var(--black);
-      padding: 30px;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .receipt-header {
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: 1px dashed var(--gray-dark);
-    }
-
-    .receipt-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      font-size: 0.95rem;
-    }
-
-    .receipt-line.total {
-      border-top: 2px solid var(--black);
-      margin-top: 15px;
-      padding-top: 15px;
-      font-weight: 700;
-    }
-
-    .receipt-kept {
-      background: var(--green-primary);
-      color: var(--white);
-      margin: 20px -30px -30px;
-      padding: 20px 30px;
-      display: flex;
-      justify-content: space-between;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .receipt-kept.worst-case {
-      background: var(--amber);
-    }
-
-    .receipt-scenario {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--gray-dark);
-    }
-
-    .receipt-scenario.good {
-      color: var(--green-dark);
-    }
-
-    .receipt-scenario.tough {
-      color: var(--amber);
-    }
-
-    .receipt-bottom-note {
-      text-align: center;
-      margin-top: 3rem;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 1.5rem;
-      background: var(--gray-light);
-    }
-
-    .receipt-bottom-note p {
-      margin-bottom: 0.75rem;
-    }
-
-    .receipt-bottom-note p:last-child {
-      margin-bottom: 0;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-    }
-
-    /* BMW Story */
-    .bmw-story {
-      background: var(--navy);
-      color: var(--white);
-      padding: 60px 0;
-    }
-
-    .bmw-content {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .bmw-content h3 {
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .bmw-content p {
-      font-size: 1.15rem;
-      line-height: 1.7;
-    }
-
-    .bmw-content strong {
-      color: var(--green-primary);
-    }
-
-    /* Mechanism */
-    .mechanism {
-      background: var(--white);
-      padding: 80px 0;
-    }
-
-    .mechanism h2 {
-      color: var(--green-primary);
-      margin-bottom: 2rem;
-    }
-
-    .mechanism-content {
-      max-width: 700px;
-    }
-
-    .mechanism-intro {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-    }
-
-    .steps {
-      margin: 2rem 0;
-    }
-
-    .step {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--gray-light);
-    }
-
-    .step:last-child {
-      border-bottom: none;
-    }
-
-    .step-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1rem;
-      color: var(--green-primary);
-      width: 30px;
-      flex-shrink: 0;
-    }
-
-    .step-text {
-      margin: 0;
-    }
-
-    .mechanism-note {
-      background: var(--gray-light);
-      padding: 1.5rem;
-      margin-top: 2rem;
-      font-size: 0.95rem;
-      color: var(--gray-dark);
-    }
-
-    .bottom-line {
-      background: var(--green-light);
-      padding: 2rem;
-      margin-top: 2rem;
-    }
-
-    .bottom-line p {
-      margin-bottom: 1rem;
-    }
-
-    .bottom-line p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Preemption */
-    .preemption {
-      background: var(--green-primary);
-      color: var(--white);
-      padding: 80px 0;
-    }
-
-    .preemption h2 {
-      margin-bottom: 2rem;
-    }
-
-    .preemption-content {
-      max-width: 700px;
-    }
-
-    .preemption p {
-      margin-bottom: 1rem;
-    }
-
-    .testimonial {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .testimonial-quote {
-      font-size: 1.15rem;
-      font-style: italic;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .testimonial-author {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    .renewal-stat {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .renewal-number {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 4rem;
-      line-height: 1;
-    }
-
-    .renewal-text {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    /* Partners */
-    .partners {
-      background: var(--navy);
-      padding: 50px 0;
-    }
-
-    .partners-inner {
-      text-align: center;
-    }
-
-    .partners-label {
-      color: var(--white);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      opacity: 0.8;
-    }
-
-    .partners-logos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 25px;
-      margin-bottom: 2rem;
-    }
-
-    .partner-logo {
-      background: var(--white);
-      padding: 12px 24px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--navy);
-    }
-
-    .backed-by {
-      color: var(--white);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      opacity: 0.7;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .backed-by strong {
-      opacity: 1;
-      font-weight: 600;
-    }
-
-    /* CTA */
-    .cta {
-      background: var(--gray-light);
-      text-align: center;
-      padding: 100px 0;
-    }
-
-    .cta h2 {
-      color: var(--black);
-      margin-bottom: 1rem;
-    }
-
-    .cta p {
-      font-size: 1.1rem;
-      color: var(--gray-dark);
-      margin-bottom: 0;
-    }
-
-    .cta-note {
-      font-size: 0.9rem;
-      color: var(--gray-medium);
-      margin-top: 1.5rem;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--black);
-      color: var(--gray-medium);
-      padding: 40px 0;
-      font-size: 0.85rem;
-      line-height: 1.8;
-    }
-
-    footer p {
-      margin-bottom: 0.5rem;
-    }
-
-    /* Responsive */
+      --gray-medium: #6B6B6B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 18px; line-height: 1.7; color: var(--charcoal); background: var(--cream); }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); text-transform: uppercase; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); margin-bottom: 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    header { background: var(--navy); padding: 16px 0; position: fixed; width: 100%; top: 0; z-index: 100; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.9rem; color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-cta { background: var(--cream); color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.875rem; padding: 10px 20px; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s ease; text-decoration: none; }
+    .nav-cta:hover { background: var(--white); }
+    .hero { background: var(--navy); color: var(--cream); padding: 140px 0 80px; }
+    .hero-content { max-width: 700px; }
+    .hero p { font-size: 1.25rem; opacity: 0.9; margin-bottom: 1.25rem; }
+    .hero h1 { margin-top: 2rem; margin-bottom: 0.75rem; color: var(--white); }
+    .hero-tagline { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; opacity: 0.85; margin-bottom: 2rem; }
+    .btn-primary { display: inline-block; background: var(--cream); color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; padding: 16px 40px; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s ease; margin-top: 1rem; }
+    .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+    .btn-navy { background: var(--navy); color: var(--cream); }
+    .btn-navy:hover { background: var(--navy-light); }
+    .promise { background: var(--white); padding: 80px 0; }
+    .promise h2 { color: var(--navy); }
+    .promise-content { max-width: 700px; }
+    .promise-list { list-style: none; margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
+    .promise-list li { position: relative; padding-left: 1.5rem; }
+    .promise-list li::before { content: "✓"; position: absolute; left: 0; color: var(--sage); font-weight: bold; }
+    .promise-note { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--charcoal); margin-top: 1.5rem; }
+    .referral-note { background: var(--sage-muted); padding: 1.25rem 1.5rem; margin-top: 2rem; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95rem; border-left: 4px solid var(--sage); }
+    .proof { background: var(--cream); padding: 80px 0; }
+    .proof h2 { text-align: center; margin-bottom: 3rem; color: var(--navy); }
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .stat-card { background: var(--white); padding: 2rem; text-align: center; border-bottom: 4px solid var(--sage); }
+    .stat-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.5rem; color: var(--navy); display: block; }
+    .stat-label { font-size: 0.9rem; color: var(--charcoal); margin-top: 0.5rem; }
+    .stat-context { font-size: 0.8rem; color: var(--gray-medium); margin-top: 0.25rem; }
+    .proof-note { text-align: center; color: var(--charcoal); font-size: 0.95rem; }
+    .receipt-section { background: var(--white); padding: 80px 0; }
+    .receipt-section h2 { text-align: center; margin-bottom: 1rem; color: var(--navy); }
+    .receipt-intro { text-align: center; max-width: 500px; margin: 0 auto 3rem; color: var(--charcoal); }
+    .receipts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 750px; margin: 0 auto; }
+    .outcome-card { font-family: 'Montserrat', sans-serif; }
+    .card-name { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-medium); margin-bottom: 12px; }
+    .money-kept { padding: 24px 20px; text-align: center; margin-bottom: 16px; }
+    .money-kept.positive { background: var(--sage); color: var(--white); }
+    .money-kept.zero { background: var(--amber); color: var(--white); }
+    .money-kept-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; margin-bottom: 6px; }
+    .money-kept-amount { font-size: 2.5rem; font-weight: 900; line-height: 1; }
+    .plan-bar-container { background: var(--cream); padding: 20px; margin-bottom: 12px; }
+    .plan-bar-track { height: 24px; background: var(--cream-dark); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+    .plan-bar-fill { height: 100%; border-radius: 2px 0 0 2px; }
+    .plan-bar-fill.under-cap { background: var(--sage); }
+    .plan-bar-fill.at-cap { background: var(--amber); border-radius: 2px; }
+    .plan-bar-labels { display: flex; justify-content: space-between; font-size: 0.8rem; }
+    .plan-bar-used { font-weight: 700; color: var(--charcoal); }
+    .plan-bar-cap { color: var(--gray-medium); }
+    .repair-breakdown { background: var(--cream); padding: 16px 20px; font-size: 0.85rem; }
+    .repair-breakdown-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-medium); margin-bottom: 10px; }
+    .repair-breakdown-line { display: flex; justify-content: space-between; padding: 4px 0; }
+    .repair-breakdown-line.total { border-top: 1px solid var(--cream-dark); margin-top: 8px; padding-top: 8px; font-weight: 700; }
+    .repair-breakdown-none { color: var(--sage); font-weight: 600; text-align: center; padding: 8px 0; }
+    .insurance-compare { background: var(--navy); color: var(--cream); padding: 24px 30px; margin-top: 40px; max-width: 750px; margin-left: auto; margin-right: auto; font-family: 'Montserrat', sans-serif; }
+    .insurance-compare-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin-bottom: 16px; text-align: center; }
+    .insurance-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center; }
+    .insurance-compare-item { padding: 12px; }
+    .insurance-compare-label { font-size: 0.8rem; opacity: 0.8; margin-bottom: 6px; }
+    .insurance-compare-amount { font-size: 1.5rem; font-weight: 900; }
+    .receipt-bottom-note { text-align: center; margin-top: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .honest-rule { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); }
+    .receipt-footnote { font-size: 0.75rem; color: var(--gray-medium); margin-top: 30px; font-style: italic; }
+    .bmw-story { background: var(--navy-dark); color: var(--cream); padding: 60px 0; }
+    .bmw-content { max-width: 700px; margin: 0 auto; text-align: center; }
+    .bmw-content h3 { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; margin-bottom: 1.5rem; }
+    .bmw-content p { font-size: 1.15rem; line-height: 1.7; }
+    .bmw-content strong { color: var(--sage-light); }
+    .mechanism { background: var(--white); padding: 80px 0; }
+    .mechanism h2 { color: var(--navy); margin-bottom: 2rem; }
+    .mechanism-content { max-width: 700px; }
+    .mechanism-intro { font-size: 1.1rem; margin-bottom: 2rem; }
+    .steps { margin: 2rem 0; }
+    .step { display: flex; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--cream); }
+    .step:last-child { border-bottom: none; }
+    .step-num { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1rem; color: var(--sage); width: 30px; flex-shrink: 0; }
+    .step-text { margin: 0; }
+    .mechanism-note { background: var(--cream); padding: 1.5rem; margin-top: 2rem; font-size: 0.95rem; color: var(--charcoal); }
+    .bottom-line { background: var(--sage-muted); padding: 2rem; margin-top: 2rem; }
+    .bottom-line p { margin-bottom: 1rem; }
+    .bottom-line p:last-child { margin-bottom: 0; }
+    .preemption { background: var(--navy); color: var(--cream); padding: 80px 0; }
+    .preemption h2 { margin-bottom: 2rem; color: var(--white); }
+    .preemption-content { max-width: 700px; }
+    .preemption p { margin-bottom: 1rem; }
+    .testimonial { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2); }
+    .testimonial-quote { font-size: 1.15rem; font-style: italic; margin-bottom: 1rem; line-height: 1.6; }
+    .testimonial-author { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; opacity: 0.85; }
+    .renewal-stat { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 1.5rem; }
+    .renewal-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4rem; line-height: 1; color: var(--sage-light); }
+    .renewal-text { font-size: 1rem; line-height: 1.5; }
+    .partners { background: var(--navy-dark); padding: 50px 0; }
+    .partners-inner { text-align: center; }
+    .partners-label { color: var(--cream); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 1.5rem; opacity: 0.8; }
+    .partners-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 25px; margin-bottom: 2rem; }
+    .partner-logo { background: var(--cream); padding: 12px 24px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--navy); }
+    .backed-by { color: var(--cream); font-family: 'Montserrat', sans-serif; font-size: 0.85rem; opacity: 0.7; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2); }
+    .backed-by strong { opacity: 1; font-weight: 600; }
+    .cta { background: var(--cream); text-align: center; padding: 100px 0; }
+    .cta h2 { color: var(--navy); margin-bottom: 1rem; }
+    .cta p { font-size: 1.1rem; color: var(--charcoal); margin-bottom: 0; }
+    .cta-note { font-size: 0.9rem; color: var(--gray-medium); margin-top: 1.5rem; }
+    footer { background: var(--navy-dark); color: var(--gray-medium); padding: 40px 0; font-size: 0.85rem; line-height: 1.8; }
+    footer a { color: var(--sage-light); }
     @media (max-width: 768px) {
-      section {
-        padding: 60px 0;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .receipts-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .renewal-stat {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .step {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
+      section { padding: 60px 0; }
+      .stats-grid, .receipts-grid { grid-template-columns: 1fr; }
+      .insurance-compare-grid { grid-template-columns: 1fr; gap: 10px; }
+      .renewal-stat { flex-direction: column; text-align: center; }
+      .step { flex-direction: column; gap: 0.5rem; }
     }
   </style>
 </head>
 <body>
-
   <header>
     <div class="container header-inner">
-      <a href="#" class="logo">
-        <span>GOOD</span>
-        <span>DRIVER</span>
-        <span>CLUB</span>
-      </a>
+      <a href="#" class="logo"><span>GOOD</span><span>DRIVER</span><span>CLUB</span></a>
       <a href="#join" class="nav-cta">Get the App</a>
     </div>
   </header>
 
-  <!-- HERO: The Problem -->
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <p>Your rates went up. Again.</p>
-        <p>Clean record. No accidents. You did everything right.</p>
-        <p>You're not paying for your risk. You're paying for everyone else's accidents.</p>
-        <p>That's the part that never sat right with us either.</p>
-        <p>Good drivers should keep more of their money.</p>
+        <p>Your rates went up again.</p>
+        <p>You haven't had an accident in years. Maybe ever. And yet here you are, paying more than last year for the same coverage.</p>
+        <p>You're not paying for your risk. You're paying for everyone else's.</p>
+        <p>We started this for people like you.</p>
         <h1>Good Driver Club</h1>
-        <p class="hero-tagline">It's not insurance. It's a club for people who drive like you do.</p>
+        <p class="hero-tagline">For drivers with clean records who are tired of subsidizing everyone else.</p>
         <a href="#join" class="btn-primary">Get the App</a>
       </div>
     </div>
   </section>
 
-  <!-- PROMISE: What It Is -->
   <section class="promise">
     <div class="container">
       <div class="promise-content">
-        <h2>A Club for Good Drivers</h2>
-        <p>You keep your liability insurance. That's the law. That's separate.</p>
-        <p>This handles the rest:</p>
+        <h2>What This Is</h2>
+        <p>A group of drivers who share repair costs instead of paying an insurance company to do it for them.</p>
+        <p>If someone in the group has an accident, everyone chips in a small amount that week. If nobody does, nobody pays anything.</p>
+        <p>We handle:</p>
         <ul class="promise-list">
-          <li>Repairs</li>
+          <li>Collision</li>
           <li>Theft</li>
-          <li>Weather</li>
+          <li>Weather damage</li>
           <li>Glass</li>
           <li>Roadside</li>
         </ul>
-        <p>When something happens, everyone chips in. When nothing happens, you keep your money.</p>
-        <p class="promise-note">No app tracking your speed. No device in your car. We trust your record.</p>
-        <div class="referral-note">
-          You join through someone who's already a member. They vouch for you. You look out for each other. Pretty simple.
-        </div>
+        <p>You keep your liability insurance — that's required by law and stays separate.</p>
+        <p class="promise-note">No tracking apps. No device in your car. We look at your driving record, not your speedometer.</p>
+        <div class="referral-note">You join through someone who's already a member. They vouch for you. You look out for each other.</div>
       </div>
     </div>
   </section>
 
-  <!-- PROOF: Weekly Stats -->
   <section class="proof">
     <div class="container">
-      <h2>Last Week Across All Members</h2>
+      <h2>Last Week</h2>
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-number">$4.12</span>
           <div class="stat-label">Average weekly share</div>
-          <div class="stat-context">Less than a coffee</div>
+          <div class="stat-context">Per member</div>
         </div>
         <div class="stat-card">
-          <span class="stat-number">847</span>
-          <div class="stat-label">Repair events shared</div>
+          <span class="stat-number">18</span>
+          <div class="stat-label">Repairs shared</div>
           <div class="stat-context">Across all members</div>
         </div>
       </div>
-      <p class="proof-note">These numbers are in the app. Updated live. Hidden from no one.</p>
+      <p class="proof-note">These numbers are in the app, updated every week.</p>
     </div>
   </section>
 
-  <!-- PROOF: Two Receipts -->
   <section class="receipt-section">
     <div class="container">
       <h2>Two Members. Same Plan. Different Six Months.</h2>
-      <p class="receipt-intro">You don't know which one you'll be. But you know the range going in.</p>
-      
+      <p class="receipt-intro">One had no repairs. One did.</p>
       <div class="receipts-grid">
-        <!-- Randy: Good six months -->
-        <div class="receipt-wrapper">
-          <div class="receipt">
-            <div class="receipt-header">Randy's Statement</div>
-            <div class="receipt-line">
-              <span>Plan amount</span>
-              <span>$1,000</span>
-            </div>
-            <div class="receipt-line">
-              <span>Service fee (20%)</span>
-              <span>$200</span>
-            </div>
-            <div class="receipt-line">
-              <span>Weekly shares paid</span>
-              <span>$400</span>
-            </div>
-            <div class="receipt-line total">
-              <span>Total paid</span>
-              <span>$600</span>
-            </div>
-            <div class="receipt-kept">
-              <span>Money kept</span>
-              <span>$400</span>
-            </div>
+        <div class="outcome-card">
+          <div class="card-name">Randy</div>
+          <div class="money-kept positive">
+            <div class="money-kept-label">Money Kept</div>
+            <div class="money-kept-amount">$400</div>
           </div>
-          <p class="receipt-scenario good">Good six months. Kept $400.</p>
+          <div class="plan-bar-container">
+            <div class="plan-bar-track"><div class="plan-bar-fill under-cap" style="width: 60%;"></div></div>
+            <div class="plan-bar-labels"><span class="plan-bar-used">$600 used</span><span class="plan-bar-cap">Cap: $1,000</span></div>
+          </div>
+          <div class="repair-breakdown"><div class="repair-breakdown-none">No repairs filed</div></div>
         </div>
-
-        <!-- Sarah: Hit the cap -->
-        <div class="receipt-wrapper">
-          <div class="receipt">
-            <div class="receipt-header">Sarah's Statement</div>
-            <div class="receipt-line">
-              <span>Plan amount</span>
-              <span>$1,000</span>
-            </div>
-            <div class="receipt-line">
-              <span>Service fee (20%)</span>
-              <span>$200</span>
-            </div>
-            <div class="receipt-line">
-              <span>Weekly shares paid</span>
-              <span>$800</span>
-            </div>
-            <div class="receipt-line total">
-              <span>Total paid</span>
-              <span>$1,000</span>
-            </div>
-            <div class="receipt-kept worst-case">
-              <span>Money kept</span>
-              <span>$0</span>
-            </div>
+        <div class="outcome-card">
+          <div class="card-name">Sarah</div>
+          <div class="money-kept zero">
+            <div class="money-kept-label">Money Kept</div>
+            <div class="money-kept-amount">$0</div>
           </div>
-          <p class="receipt-scenario tough">Tough six months. Hit the cap.</p>
+          <div class="plan-bar-container">
+            <div class="plan-bar-track"><div class="plan-bar-fill at-cap" style="width: 100%;"></div></div>
+            <div class="plan-bar-labels"><span class="plan-bar-used">$1,000 used</span><span class="plan-bar-cap">Cap: $1,000</span></div>
+          </div>
+          <div class="repair-breakdown">
+            <div class="repair-breakdown-title">Her Repair: $3,000</div>
+            <div class="repair-breakdown-line"><span>Her out-of-pocket</span><span>$500</span></div>
+            <div class="repair-breakdown-line"><span>Her remaining pledge</span><span>$200</span></div>
+            <div class="repair-breakdown-line"><span>Other members shared</span><span>$2,300</span></div>
+            <div class="repair-breakdown-line total"><span>Total repair cost</span><span>$3,000</span></div>
+          </div>
         </div>
       </div>
-
+      <div class="insurance-compare">
+        <div class="insurance-compare-title">Traditional Insurance (6 months)</div>
+        <div class="insurance-compare-grid">
+          <div class="insurance-compare-item"><div class="insurance-compare-label">No repairs</div><div class="insurance-compare-amount">$1,000</div></div>
+          <div class="insurance-compare-item"><div class="insurance-compare-label">One repair</div><div class="insurance-compare-amount">$1,500</div></div>
+        </div>
+      </div>
       <div class="receipt-bottom-note">
-        <p>Sarah paid $1,000 total — about what she'd have paid at a regular insurer anyway.</p>
-        <p>Randy paid $600. That's the difference.</p>
-        <p>You don't save every time. But you never pay more than you would have.</p>
+        <p class="honest-rule">If you don't file a repair, you save. If you do, you pay about what insurance would have cost anyway.</p>
+        <p class="receipt-footnote">Illustrative example based on comparable six-month premiums and a $500 deductible.</p>
       </div>
     </div>
   </section>
 
-  <!-- PROOF: BMW Story -->
   <section class="bmw-story">
     <div class="container">
       <div class="bmw-content">
@@ -827,81 +263,55 @@
         <p>A member's BMW was totaled. We sold the salvage for $26,000.</p>
         <p>Insurance companies keep that money. We put it back in the pool.</p>
         <p><strong>Members paid zero shares for a month.</strong></p>
-        <p>That's the difference.</p>
       </div>
     </div>
   </section>
 
-  <!-- MECHANISM: How It Works -->
   <section class="mechanism">
     <div class="container">
       <div class="mechanism-content">
         <h2>How It Works</h2>
-        <p class="mechanism-intro">Everyone chips in when someone needs a repair. When nothing happens, nothing comes out.</p>
-        
+        <p class="mechanism-intro">You get a quote based on your car and your record. Then you pay 20% upfront to join. The other 80% stays in your bank account — we only pull from it when there's a repair to share.</p>
         <div class="steps">
-          <div class="step">
-            <span class="step-num">1.</span>
-            <p class="step-text">You keep your liability insurance. Required. Separate.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">2.</span>
-            <p class="step-text">You get a quote for your six-month plan.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">3.</span>
-            <p class="step-text">You pay 20% upfront to join.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">4.</span>
-            <p class="step-text">The rest stays in your pocket. When someone has a repair, a small share comes out.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">5.</span>
-            <p class="step-text">Weekly cap. Six-month cap. You'll never pay more than your plan amount.</p>
-          </div>
+          <div class="step"><span class="step-num">1.</span><p class="step-text">You keep your liability insurance. Required by law. Separate from this.</p></div>
+          <div class="step"><span class="step-num">2.</span><p class="step-text">You get a quote for a six-month plan based on your car and driving record.</p></div>
+          <div class="step"><span class="step-num">3.</span><p class="step-text">You pay 20% upfront as a service fee.</p></div>
+          <div class="step"><span class="step-num">4.</span><p class="step-text">Each week, if there are repairs to cover, you contribute a small share. If there aren't, you contribute nothing.</p></div>
+          <div class="step"><span class="step-num">5.</span><p class="step-text">Your contributions are capped. You'll never pay more than your quoted plan amount over six months.</p></div>
         </div>
-
-        <div class="mechanism-note">
-          Your money doesn't sit in our account. We don't hold reserves. Repairs are funded by members when they happen. The money is yours until it's needed.
-        </div>
-
+        <div class="mechanism-note">We don't hold your money in an account. Repairs are funded by members when they happen. What you don't use stays yours.</div>
         <div class="bottom-line">
-          <p>When everyone's looking out for each other, people drive more careful.</p>
+          <p>When people know they're sharing costs with each other, they drive more carefully.</p>
           <p><strong>Our members have 30% fewer accidents than average.</strong></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PREEMPTION: If Something Happens -->
   <section class="preemption">
     <div class="container">
       <div class="preemption-content">
         <h2>If Something Happens</h2>
-        <p>You call. You get a person. Not a recording, not a maze. A person.</p>
-        <p>Towing. Rental if your plan covers it. Over 5,000 shops that stand behind their work.</p>
+        <p>You call and talk to a real person. We assign you someone who handles your repair from start to finish.</p>
+        <p>Towing. A rental if your plan includes it. Over 5,000 certified shops nationwide that guarantee their work.</p>
         <p>If your car is totaled, we use the same valuation tools the big insurers use.</p>
-        <p>You see every estimate, every invoice, every photo in the app. No mysteries. No fighting.</p>
-
+        <p>You can see every estimate, every invoice, every photo in the app. No surprises.</p>
         <div class="testimonial">
-          <p class="testimonial-quote">"I was skeptical about the service. It was actually a lot better than I thought. I didn't know repair shops had to go through certain qualifications just to work with you guys. That was the turning point for me."</p>
+          <p class="testimonial-quote">"I was skeptical. But the service was better than I expected. I didn't know your repair shops had to meet qualifications to work with you. That's what sold me on staying."</p>
           <p class="testimonial-author">Michael, Tampa, member since 2024</p>
         </div>
-
         <div class="renewal-stat">
           <span class="renewal-number">80%</span>
-          <div class="renewal-text">of people who have a repair and pay their full share come back.<br><strong>They saw how it works. They stayed.</strong></div>
+          <div class="renewal-text">of people who file a repair and pay their full share come back for another term.<br><strong>They saw how it works. They stayed.</strong></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PARTNERS -->
   <section class="partners">
     <div class="container">
       <div class="partners-inner">
-        <p class="partners-label">Trusted partners</p>
+        <p class="partners-label">Repair network</p>
         <div class="partners-logos">
           <span class="partner-logo">Safelite</span>
           <span class="partner-logo">Copart</span>
@@ -912,23 +322,20 @@
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta" id="join">
     <div class="container">
-      <h2>Ready to join the club?</h2>
-      <p>Download the app and enter your referral code.</p>
-      <a href="#" class="btn-primary btn-green">Get the App</a>
+      <h2>Ready to join?</h2>
+      <p>Download the app and enter your referral code to get started.</p>
+      <a href="#join" class="btn-primary btn-navy">Get the App</a>
       <p class="cta-note">You'll need a code from the person who told you about us.</p>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>Good Driver Club is not an insurance company. You keep your state-required liability insurance.</p>
-      <p>Repairs are funded by member contributions, not guaranteed by GDM.</p>
+      <p>Good Driver Club is not an insurance company. You keep your liability insurance as required by your state. Repair sharing is funded by member contributions and is not guaranteed. <a href="#">Read the full terms</a>.</p>
     </div>
   </footer>
-
 </body>
 </html>
+```
