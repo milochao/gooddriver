@@ -745,16 +745,25 @@
                   marginTop: '24px',
                   backgroundColor: colors.navy,
                   borderRadius: '20px',
-                  padding: '40px',
+                  padding: '48px 40px',
                   textAlign: 'center',
                   color: colors.white,
                 }}>
-                  <div style={{ fontSize: '16px', opacity: 0.8, marginBottom: '8px' }}>After 6 months</div>
-                  <div style={{ fontSize: '48px', fontWeight: '700', marginBottom: '8px' }}>${remainingBalance.toFixed(2)}</div>
-                  <div style={{ fontSize: '20px', opacity: 0.9, marginBottom: '24px' }}>is still yours</div>
-                  <div style={{ fontSize: '16px', opacity: 0.7, paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-                    You paid ${(SERVICE_FEE + totalShared).toFixed(2)} instead of ${QUOTE.toFixed(2)}<br />
-                    <strong>You saved ${(QUOTE - SERVICE_FEE - totalShared).toFixed(2)}</strong> (66% of your quote)
+                  <div style={{ fontSize: '16px', opacity: 0.8, marginBottom: '8px' }}>After 6 months, this member saved</div>
+                  <div style={{ fontSize: '72px', fontWeight: '700', marginBottom: '4px', lineHeight: 1 }}>66%</div>
+                  <div style={{ fontSize: '24px', opacity: 0.9, marginBottom: '24px' }}>of their quote</div>
+                  <div style={{ 
+                    display: 'inline-block',
+                    backgroundColor: 'rgba(255,255,255,0.15)', 
+                    borderRadius: '12px',
+                    padding: '16px 24px',
+                    marginBottom: '20px',
+                  }}>
+                    <span style={{ fontSize: '32px', fontWeight: '600' }}>${remainingBalance.toFixed(2)}</span>
+                    <span style={{ fontSize: '16px', opacity: 0.8, marginLeft: '8px' }}>back in their pocket</span>
+                  </div>
+                  <div style={{ fontSize: '15px', opacity: 0.6 }}>
+                    Paid ${(SERVICE_FEE + totalShared).toFixed(2)} instead of ${QUOTE.toFixed(2)}
                   </div>
                 </div>
               )}
