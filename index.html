@@ -53,54 +53,54 @@
   <script type="text/babel">
     const { useState } = React;
 
-    // Weekly data for the interactive component
+    // Real data from Griffen's receipt
     const weeklyData = [
       { week: 1, date: "Mar 30", sharing: 0, carsHelped: 0, story: "Your plan starts today.", detail: "Your balance is set. Let's see how the next 6 months go." },
       { week: 2, date: "Apr 6", sharing: 0, carsHelped: 0, story: "Nothing happened.", detail: "No one in the club needed help this week." },
       { week: 3, date: "Apr 13", sharing: 0, carsHelped: 0, story: "Another quiet week.", detail: "Good drivers, few accidents. That's the idea." },
       { week: 4, date: "Apr 20", sharing: 0, carsHelped: 0, story: "Still quiet.", detail: "Four weeks in. Your balance is untouched." },
-      { week: 5, date: "Apr 27", sharing: 0.76, carsHelped: 1, story: "Someone needed help.", detail: "Maria in San Antonio had hail damage. The club chipped in. Your share was 76 cents." },
+      { week: 5, date: "Apr 27", sharing: 0.76, carsHelped: 1, story: "Someone needed help.", detail: "Maria in San Antonio had hail damage. The club chipped in." },
       { week: 6, date: "May 4", sharing: 0, carsHelped: 0, story: "Back to quiet.", detail: "Maria's car is fixed. She's back on the road." },
       { week: 7, date: "May 12", sharing: 0, carsHelped: 0, story: "Nothing this week.", detail: "No claims filed." },
-      { week: 8, date: "May 19", sharing: 1.24, carsHelped: 2, story: "Two small claims.", detail: "Fender benders in Phoenix. Your share: $1.24" },
-      { week: 9, date: "May 26", sharing: 6.26, carsHelped: 1, story: "A break-in.", detail: "Someone's window got smashed in Chicago. Your share: $6.26" },
-      { week: 10, date: "Jun 2", sharing: 10.50, carsHelped: 4, story: "Busy week.", detail: "Four members needed repairs. You hit the weekly cap: $10.50. It never goes higher than this." },
+      { week: 8, date: "May 19", sharing: 1.24, carsHelped: 2, story: "Two small claims.", detail: "Fender benders in Phoenix." },
+      { week: 9, date: "May 26", sharing: 6.26, carsHelped: 1, story: "A break-in.", detail: "Someone's window got smashed in Chicago." },
+      { week: 10, date: "Jun 2", sharing: 10.50, carsHelped: 4, story: "Busy week.", detail: "Four members needed repairs. You hit the weekly cap." },
       { week: 11, date: "Jun 9", sharing: 0, carsHelped: 0, story: "Quiet again.", detail: "No accidents reported." },
       { week: 12, date: "Jun 16", sharing: 0, carsHelped: 0, story: "Halfway there.", detail: "You're 12 weeks in. Most of your balance is still yours." },
       { week: 13, date: "Jun 23", sharing: 0, carsHelped: 0, story: "Summer driving.", detail: "Peak season, but the club stays careful." },
       { week: 14, date: "Jun 30", sharing: 0, carsHelped: 0, story: "Nothing.", detail: "Quiet week." },
       { week: 15, date: "Jul 7", sharing: 0, carsHelped: 0, story: "Holiday weekend.", detail: "No incidents over the 4th." },
       { week: 16, date: "Jul 14", sharing: 0, carsHelped: 0, story: "Five weeks clean.", detail: "No claims since Week 10." },
-      { week: 17, date: "Jul 21", sharing: 1.15, carsHelped: 1, story: "Small scrape.", detail: "Parking lot incident in Denver. Your share: $1.15" },
+      { week: 17, date: "Jul 21", sharing: 1.15, carsHelped: 1, story: "Small scrape.", detail: "Parking lot incident in Denver." },
       { week: 18, date: "Jul 28", sharing: 0, carsHelped: 0, story: "Quiet.", detail: "Nothing to report." },
-      { week: 19, date: "Aug 4", sharing: 7.59, carsHelped: 1, story: "Storm damage.", detail: "A member hydroplaned in Florida. Your share: $7.59" },
-      { week: 20, date: "Aug 11", sharing: 4.42, carsHelped: 2, story: "Two windshields.", detail: "Road debris. Your share: $4.42" },
-      { week: 21, date: "Aug 18", sharing: 1.15, carsHelped: 1, story: "Bumper repair.", detail: "Minor fix. Your share: $1.15" },
+      { week: 19, date: "Aug 4", sharing: 7.59, carsHelped: 1, story: "Storm damage.", detail: "A member hydroplaned in Florida." },
+      { week: 20, date: "Aug 11", sharing: 4.42, carsHelped: 2, story: "Two windshields.", detail: "Road debris." },
+      { week: 21, date: "Aug 18", sharing: 1.15, carsHelped: 1, story: "Bumper repair.", detail: "Minor fix." },
       { week: 22, date: "Aug 25", sharing: 0, carsHelped: 0, story: "Clean week.", detail: "Heading into Labor Day." },
-      { week: 23, date: "Sep 1", sharing: 6.24, carsHelped: 3, story: "Three claims.", detail: "Small stuff. Your share: $6.24" },
-      { week: 24, date: "Sep 8", sharing: 5.26, carsHelped: 1, story: "Deer collision.", detail: "Ohio. It happens. Your share: $5.26" },
-      { week: 25, date: "Sep 15", sharing: 4.44, carsHelped: 2, story: "Final week.", detail: "Two repairs. Your share: $4.44. You made it." },
+      { week: 23, date: "Sep 1", sharing: 6.24, carsHelped: 3, story: "Three claims.", detail: "Small stuff." },
+      { week: 24, date: "Sep 8", sharing: 5.26, carsHelped: 1, story: "Deer collision.", detail: "Ohio. It happens." },
+      { week: 25, date: "Sep 15", sharing: 4.44, carsHelped: 2, story: "Final week.", detail: "Two repairs. You made it." },
     ];
 
+    // Real numbers from Griffen's receipt
     const QUOTE = 350.30;
     const SERVICE_FEE = 70.06;
     const INITIAL_BALANCE = 280.24;
     const WEEKLY_CAP = 10.51;
+    const TOTAL_SHARED = 49.01;
+    const FINAL_SAVINGS = 231.23;
 
-    // Colors
     const colors = {
       navy: '#1E3A5F',
-      navyLight: '#2A4A73',
       cream: '#F8F6F1',
       creamDark: '#EDE9E0',
       sage: '#7D9B84',
-      sageLight: '#9BB5A1',
       charcoal: '#2D2D2D',
       white: '#FFFFFF',
       grayMedium: '#6B6B6B',
     };
 
-    // Simple icon components
+    // Minimalist icons
     const IconPerson = () => (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="4" />
@@ -121,6 +121,47 @@
       </svg>
     );
 
+    // Coverage icons - minimalist line icons
+    const IconCrash = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 8v4M12 16h.01" />
+      </svg>
+    );
+
+    const IconTheft = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    );
+
+    const IconHail = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" />
+        <line x1="8" y1="16" x2="8" y2="16" />
+        <line x1="8" y1="20" x2="8" y2="20" />
+        <line x1="12" y1="18" x2="12" y2="18" />
+        <line x1="12" y1="22" x2="12" y2="22" />
+        <line x1="16" y1="16" x2="16" y2="16" />
+        <line x1="16" y1="20" x2="16" y2="20" />
+      </svg>
+    );
+
+    const IconGlass = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+        <line x1="12" y1="22" x2="12" y2="15.5" />
+        <polyline points="22 8.5 12 15.5 2 8.5" />
+      </svg>
+    );
+
+    const IconRoadside = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      </svg>
+    );
+
     function GDMLandingPage() {
       const [currentWeek, setCurrentWeek] = useState(0);
       const [showHowItWorks, setShowHowItWorks] = useState(false);
@@ -130,15 +171,23 @@
       const totalShared = weeklyData.slice(0, currentWeek + 1).reduce((sum, w) => sum + w.sharing, 0);
       const totalCarsHelped = weeklyData.slice(0, currentWeek + 1).reduce((sum, w) => sum + w.carsHelped, 0);
       const remainingBalance = INITIAL_BALANCE - totalShared;
-      const percentKept = Math.round((remainingBalance / INITIAL_BALANCE) * 100);
+      const percentOfBalanceKept = Math.round((remainingBalance / INITIAL_BALANCE) * 100);
       const currentData = weeklyData[currentWeek];
       const pledgeAtAccident = INITIAL_BALANCE - weeklyData.slice(0, 12).reduce((sum, w) => sum + w.sharing, 0);
 
       const getHealthColor = () => {
-        if (percentKept >= 80) return '#22c55e';
-        if (percentKept >= 60) return colors.sage;
+        if (percentOfBalanceKept >= 80) return '#22c55e';
+        if (percentOfBalanceKept >= 60) return colors.sage;
         return '#f59e0b';
       };
+
+      const coverageItems = [
+        { name: 'Crashes', icon: <IconCrash /> },
+        { name: 'Theft', icon: <IconTheft /> },
+        { name: 'Hail', icon: <IconHail /> },
+        { name: 'Glass', icon: <IconGlass /> },
+        { name: 'Roadside', icon: <IconRoadside /> },
+      ];
 
       return (
         <div style={{ backgroundColor: colors.cream, minHeight: '100vh' }}>
@@ -199,7 +248,7 @@
               marginLeft: 'auto',
               marginRight: 'auto',
             }}>
-              About 94% of drivers go a whole year without filing a claim. But insurance charges all 100 like they're going to crash tomorrow.
+              94 out of 100 drivers go a whole year without filing a claim. But insurance charges all 100 the same.
             </p>
             <p style={{ 
               fontSize: '18px', 
@@ -229,30 +278,32 @@
               <p style={{ 
                 fontSize: '18px', 
                 color: colors.charcoal,
-                lineHeight: '1.7',
+                lineHeight: '1.8',
                 marginBottom: '24px',
                 textAlign: 'center',
-                maxWidth: '600px',
+                maxWidth: '500px',
                 margin: '0 auto 24px',
               }}>
-                It's a club where members share repair costs. You get a quote. Say it's $1,000.
+                It's a club where members share repair costs.<br />
+                You get a quote.<br />
+                Here's a real one: $350.30.
               </p>
               
+              {/* Fixed-height box showing the real receipt math */}
               <div style={{ 
                 backgroundColor: colors.cream,
                 borderRadius: '16px',
                 padding: '32px',
-                marginBottom: '24px',
                 maxWidth: '500px',
                 margin: '0 auto 24px',
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '16px', borderBottom: `1px solid ${colors.creamDark}` }}>
                   <span style={{ color: colors.grayMedium, fontSize: '17px' }}>20% Service fee</span>
-                  <span style={{ fontWeight: '600', color: colors.charcoal, fontSize: '17px' }}>$200</span>
+                  <span style={{ fontWeight: '600', color: colors.charcoal, fontSize: '17px' }}>$70.06</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ color: colors.grayMedium, fontSize: '17px' }}>80% Your balance</span>
-                  <span style={{ fontWeight: '600', color: colors.navy, fontSize: '17px' }}>$800</span>
+                  <span style={{ fontWeight: '600', color: colors.navy, fontSize: '17px' }}>$280.24</span>
                 </div>
                 <p style={{ fontSize: '14px', color: colors.grayMedium, marginTop: '20px', marginBottom: 0, lineHeight: '1.6' }}>
                   The service fee keeps the lights on: advisors, shops, the whole operation. Your balance stays in your account.
@@ -295,7 +346,7 @@
                   margin: 0,
                   lineHeight: '1.5',
                 }}>
-                  This is a real member's 6-month plan. Drag the slider to watch how the money works week by week.
+                  This is that same member's 6-month plan. Drag the slider to watch what happens.
                 </p>
               </div>
 
@@ -347,7 +398,7 @@
                         borderRadius: '50%', 
                         backgroundColor: getHealthColor() 
                       }}></div>
-                      {percentKept}% still yours
+                      {percentOfBalanceKept}% of balance remaining
                     </div>
                   </div>
 
@@ -378,7 +429,7 @@
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN - Bar chart + story */}
+                {/* RIGHT COLUMN - Bar chart + story (FIXED HEIGHT) */}
                 <div>
                   {/* Bar chart */}
                   <div style={{ 
@@ -462,11 +513,12 @@
                     </div>
                   </div>
 
-                  {/* Story card */}
+                  {/* Story card - FIXED HEIGHT */}
                   <div style={{
                     backgroundColor: colors.white,
                     borderRadius: '16px',
                     padding: '24px',
+                    minHeight: '160px',
                   }}>
                     <div style={{ 
                       fontSize: '22px', 
@@ -481,13 +533,13 @@
                       fontSize: '16px', 
                       color: colors.grayMedium,
                       lineHeight: '1.5',
+                      marginBottom: '16px',
                     }}>
                       {currentData.detail}
                     </div>
 
-                    {currentData.sharing > 0 && (
+                    {currentData.sharing > 0 ? (
                       <div style={{
-                        marginTop: '16px',
                         padding: '14px 18px',
                         backgroundColor: colors.cream,
                         borderRadius: '10px',
@@ -498,6 +550,20 @@
                         <span style={{ fontSize: '15px', color: colors.grayMedium }}>Your share this week</span>
                         <span style={{ fontSize: '18px', fontWeight: '600', color: colors.sage }}>
                           ${currentData.sharing.toFixed(2)}
+                        </span>
+                      </div>
+                    ) : (
+                      <div style={{
+                        padding: '14px 18px',
+                        backgroundColor: colors.cream,
+                        borderRadius: '10px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>
+                        <span style={{ fontSize: '15px', color: colors.grayMedium }}>Your share this week</span>
+                        <span style={{ fontSize: '18px', fontWeight: '600', color: colors.grayMedium }}>
+                          $0.00
                         </span>
                       </div>
                     )}
@@ -547,7 +613,7 @@
                 </div>
               </div>
 
-              {/* FAQ sections - three column on desktop */}
+              {/* FAQ sections - FIXED HEIGHT, only expand content area */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
@@ -558,6 +624,8 @@
                   backgroundColor: colors.white,
                   borderRadius: '16px',
                   overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
                   <button
                     onClick={() => setShowHowItWorks(!showHowItWorks)}
@@ -570,16 +638,17 @@
                       border: 'none',
                       backgroundColor: 'transparent',
                       cursor: 'pointer',
+                      minHeight: '70px',
                     }}
                   >
                     <span style={{ fontSize: '15px', color: colors.charcoal, fontWeight: '500', textAlign: 'left' }}>How does the 20%/80% work?</span>
-                    <span style={{ color: colors.grayMedium, fontSize: '20px' }}>{showHowItWorks ? '−' : '+'}</span>
+                    <span style={{ color: colors.grayMedium, fontSize: '20px', marginLeft: '12px' }}>{showHowItWorks ? '−' : '+'}</span>
                   </button>
                   {showHowItWorks && (
                     <div style={{ padding: '0 20px 20px', fontSize: '14px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                      <p style={{ margin: '0 0 12px 0' }}><strong style={{ color: colors.charcoal }}>Your quote: ${QUOTE.toFixed(2)}.</strong></p>
-                      <p style={{ margin: '0 0 12px 0' }}><strong style={{ color: colors.charcoal }}>20%</strong> (${SERVICE_FEE.toFixed(2)}) is the service fee, paid upfront.</p>
-                      <p style={{ margin: '0' }}><strong style={{ color: colors.charcoal }}>80%</strong> (${INITIAL_BALANCE.toFixed(2)}) stays in your bank. We draw from it when members need repairs. What's left at the end? Yours.</p>
+                      <p style={{ margin: '0 0 12px 0' }}><strong style={{ color: colors.charcoal }}>Your quote: $350.30</strong></p>
+                      <p style={{ margin: '0 0 12px 0' }}><strong style={{ color: colors.charcoal }}>20%</strong> ($70.06) is the service fee, paid upfront.</p>
+                      <p style={{ margin: '0' }}><strong style={{ color: colors.charcoal }}>80%</strong> ($280.24) stays in your bank. We draw from it when members need repairs. What's left at the end? Yours.</p>
                     </div>
                   )}
                 </div>
@@ -589,6 +658,8 @@
                   backgroundColor: colors.white,
                   borderRadius: '16px',
                   overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
                   <button
                     onClick={() => setShowAccident(!showAccident)}
@@ -601,10 +672,11 @@
                       border: 'none',
                       backgroundColor: 'transparent',
                       cursor: 'pointer',
+                      minHeight: '70px',
                     }}
                   >
                     <span style={{ fontSize: '15px', color: colors.charcoal, fontWeight: '500', textAlign: 'left' }}>What if I have an accident?</span>
-                    <span style={{ color: colors.grayMedium, fontSize: '20px' }}>{showAccident ? '−' : '+'}</span>
+                    <span style={{ color: colors.grayMedium, fontSize: '20px', marginLeft: '12px' }}>{showAccident ? '−' : '+'}</span>
                   </button>
                   {showAccident && (
                     <div style={{ padding: '0 20px 20px', fontSize: '14px', color: colors.grayMedium, lineHeight: '1.6' }}>
@@ -636,6 +708,8 @@
                   backgroundColor: colors.white,
                   borderRadius: '16px',
                   overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
                   <button
                     onClick={() => setShowCap(!showCap)}
@@ -648,15 +722,16 @@
                       border: 'none',
                       backgroundColor: 'transparent',
                       cursor: 'pointer',
+                      minHeight: '70px',
                     }}
                   >
                     <span style={{ fontSize: '15px', color: colors.charcoal, fontWeight: '500', textAlign: 'left' }}>What's the weekly cap?</span>
-                    <span style={{ color: colors.grayMedium, fontSize: '20px' }}>{showCap ? '−' : '+'}</span>
+                    <span style={{ color: colors.grayMedium, fontSize: '20px', marginLeft: '12px' }}>{showCap ? '−' : '+'}</span>
                   </button>
                   {showCap && (
                     <div style={{ padding: '0 20px 20px', fontSize: '14px', color: colors.grayMedium, lineHeight: '1.6' }}>
                       <p style={{ margin: 0 }}>
-                        No matter how many accidents happen, you never share more than <strong style={{ color: colors.charcoal }}>${WEEKLY_CAP.toFixed(2)} per week</strong> (3.75% of your balance). 
+                        No matter how many accidents happen, you never share more than <strong style={{ color: colors.charcoal }}>$10.51 per week</strong> (3.75% of your balance). 
                         That's the ceiling. Green bars in the chart show weeks that hit the cap.
                       </p>
                     </div>
@@ -679,7 +754,7 @@
                   <div style={{ fontSize: '20px', opacity: 0.9, marginBottom: '24px' }}>is still yours</div>
                   <div style={{ fontSize: '16px', opacity: 0.7, paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.2)' }}>
                     You paid ${(SERVICE_FEE + totalShared).toFixed(2)} instead of ${QUOTE.toFixed(2)}<br />
-                    The club helped {totalCarsHelped} members fix their cars.
+                    <strong>You saved ${(QUOTE - SERVICE_FEE - totalShared).toFixed(2)}</strong> (66% of your quote)
                   </div>
                 </div>
               )}
@@ -709,16 +784,17 @@
                 gap: '16px',
                 marginBottom: '32px',
               }}>
-                {['Crashes', 'Theft', 'Hail', 'Glass', 'Roadside'].map((item) => (
-                  <div key={item} style={{
+                {coverageItems.map((item) => (
+                  <div key={item.name} style={{
                     backgroundColor: colors.cream,
                     borderRadius: '12px',
-                    padding: '20px 40px',
-                    fontSize: '17px',
-                    fontWeight: '500',
-                    color: colors.charcoal,
+                    padding: '20px 32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
                   }}>
-                    {item}
+                    {item.icon}
+                    <span style={{ fontSize: '17px', fontWeight: '500', color: colors.charcoal }}>{item.name}</span>
                   </div>
                 ))}
               </div>
