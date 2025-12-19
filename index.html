@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Good Driver Club</title>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -16,998 +13,327 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
       -webkit-font-smoothing: antialiased;
-    }
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      cursor: grab;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #1E3A5F;
-      cursor: grab;
-      border: 3px solid white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    input[type="range"]::-moz-range-thumb {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #1E3A5F;
-      cursor: grab;
-      border: 3px solid white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      background-color: #F4F4F2; /* Cloud Dancer */
     }
     button {
       font-family: inherit;
+      cursor: pointer;
     }
+    .faq-content {
+      display: none;
+      padding: 0 20px 20px;
+      font-size: 14px;
+      color: #555555;
+      line-height: 1.6;
+    }
+    .faq-content.open {
+      display: block;
+    }
+    
+    /* GDM Brand Colors:
+       Cloud Dancer (cream): #F4F4F2
+       Sky (bright blue): #29B6F6
+       Blue (deep blue): #0277BD
+       Black: #1A1A1A
+    */
   </style>
 </head>
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
+  <!-- HEADER -->
+  <header style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+    <div style="font-size: 20px; font-weight: 700; color: #0277BD; letter-spacing: -0.5px;">
+      Good Driver Club
+    </div>
+    <button style="background-color: #0277BD; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;">
+      Get the App
+    </button>
+  </header>
 
-    // Real data from Griffen's receipt
-    const weeklyData = [
-      { week: 1, date: "Mar 30", sharing: 0, carsHelped: 0, story: "Your plan starts today.", detail: "Your balance is set. Let's see how the next 6 months go." },
-      { week: 2, date: "Apr 6", sharing: 0, carsHelped: 0, story: "Nothing happened.", detail: "No one in the club needed help this week." },
-      { week: 3, date: "Apr 13", sharing: 0, carsHelped: 0, story: "Another quiet week.", detail: "Good drivers, few accidents. That's the idea." },
-      { week: 4, date: "Apr 20", sharing: 0, carsHelped: 0, story: "Still quiet.", detail: "Four weeks in. Your balance is untouched." },
-      { week: 5, date: "Apr 27", sharing: 0.76, carsHelped: 1, story: "Someone needed help.", detail: "Maria in San Antonio had hail damage. The club chipped in." },
-      { week: 6, date: "May 4", sharing: 0, carsHelped: 0, story: "Back to quiet.", detail: "Maria's car is fixed. She's back on the road." },
-      { week: 7, date: "May 12", sharing: 0, carsHelped: 0, story: "Nothing this week.", detail: "No claims filed." },
-      { week: 8, date: "May 19", sharing: 1.24, carsHelped: 2, story: "Two small claims.", detail: "Fender benders in Phoenix." },
-      { week: 9, date: "May 26", sharing: 6.26, carsHelped: 1, story: "A break-in.", detail: "Someone's window got smashed in Chicago." },
-      { week: 10, date: "Jun 2", sharing: 10.50, carsHelped: 4, story: "Busy week.", detail: "Four members needed repairs. You hit the weekly cap." },
-      { week: 11, date: "Jun 9", sharing: 0, carsHelped: 0, story: "Quiet again.", detail: "No accidents reported." },
-      { week: 12, date: "Jun 16", sharing: 0, carsHelped: 0, story: "Halfway there.", detail: "You're 12 weeks in. Most of your balance is still yours." },
-      { week: 13, date: "Jun 23", sharing: 0, carsHelped: 0, story: "Summer driving.", detail: "Peak season, but the club stays careful." },
-      { week: 14, date: "Jun 30", sharing: 0, carsHelped: 0, story: "Nothing.", detail: "Quiet week." },
-      { week: 15, date: "Jul 7", sharing: 0, carsHelped: 0, story: "Holiday weekend.", detail: "No incidents over the 4th." },
-      { week: 16, date: "Jul 14", sharing: 0, carsHelped: 0, story: "Five weeks clean.", detail: "No claims since Week 10." },
-      { week: 17, date: "Jul 21", sharing: 1.15, carsHelped: 1, story: "Small scrape.", detail: "Parking lot incident in Denver." },
-      { week: 18, date: "Jul 28", sharing: 0, carsHelped: 0, story: "Quiet.", detail: "Nothing to report." },
-      { week: 19, date: "Aug 4", sharing: 7.59, carsHelped: 1, story: "Storm damage.", detail: "A member hydroplaned in Florida." },
-      { week: 20, date: "Aug 11", sharing: 4.42, carsHelped: 2, story: "Two windshields.", detail: "Road debris." },
-      { week: 21, date: "Aug 18", sharing: 1.15, carsHelped: 1, story: "Bumper repair.", detail: "Minor fix." },
-      { week: 22, date: "Aug 25", sharing: 0, carsHelped: 0, story: "Clean week.", detail: "Heading into Labor Day." },
-      { week: 23, date: "Sep 1", sharing: 6.24, carsHelped: 3, story: "Three claims.", detail: "Small stuff." },
-      { week: 24, date: "Sep 8", sharing: 5.26, carsHelped: 1, story: "Deer collision.", detail: "Ohio. It happens." },
-      { week: 25, date: "Sep 15", sharing: 4.44, carsHelped: 2, story: "Final week.", detail: "Two repairs. You made it." },
-    ];
+  <!-- HERO -->
+  <section style="padding: 60px 24px 80px; text-align: center; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: 48px; font-weight: 700; color: #1A1A1A; line-height: 1.15; margin: 0 0 20px 0;">
+      You've been a good driver for years.
+    </h1>
+    <p style="font-size: 24px; color: #555555; line-height: 1.5; margin: 0 0 32px 0; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Your insurance bill doesn't seem to know that.
+    </p>
+    <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; max-width: 550px; margin: 0 auto;">
+      We're not an insurance company. We're a membership club for good drivers that saves them 30-40% on collision and comprehensive.
+    </p>
+  </section>
 
-    // Real numbers from Griffen's receipt
-    const QUOTE = 350.30;
-    const SERVICE_FEE = 70.06;
-    const INITIAL_BALANCE = 280.24;
-    const WEEKLY_CAP = 10.51;
-    const TOTAL_SHARED = 49.01;
-    const FINAL_SAVINGS = 231.23;
-
-    const colors = {
-      navy: '#1E3A5F',
-      cream: '#F8F6F1',
-      creamDark: '#EDE9E0',
-      sage: '#7D9B84',
-      charcoal: '#2D2D2D',
-      white: '#FFFFFF',
-      grayMedium: '#6B6B6B',
-    };
-
-    // Minimalist icons
-    const IconPerson = () => (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-      </svg>
-    );
-
-    const IconWrench = () => (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-      </svg>
-    );
-
-    const IconPhone = () => (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-        <line x1="12" y1="18" x2="12" y2="18" />
-      </svg>
-    );
-
-    // Coverage icons - minimalist line icons
-    const IconCrash = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4M12 16h.01" />
-      </svg>
-    );
-
-    const IconTheft = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </svg>
-    );
-
-    const IconHail = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" />
-        <line x1="8" y1="16" x2="8" y2="16" />
-        <line x1="8" y1="20" x2="8" y2="20" />
-        <line x1="12" y1="18" x2="12" y2="18" />
-        <line x1="12" y1="22" x2="12" y2="22" />
-        <line x1="16" y1="16" x2="16" y2="16" />
-        <line x1="16" y1="20" x2="16" y2="20" />
-      </svg>
-    );
-
-    const IconGlass = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-        <line x1="12" y1="22" x2="12" y2="15.5" />
-        <polyline points="22 8.5 12 15.5 2 8.5" />
-      </svg>
-    );
-
-    const IconRoadside = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={colors.charcoal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-      </svg>
-    );
-
-    function GDMLandingPage() {
-      const [currentWeek, setCurrentWeek] = useState(0);
-      const [showHowItWorks, setShowHowItWorks] = useState(false);
-      const [showAccident, setShowAccident] = useState(false);
-      const [showCap, setShowCap] = useState(false);
-
-      const totalShared = weeklyData.slice(0, currentWeek + 1).reduce((sum, w) => sum + w.sharing, 0);
-      const totalCarsHelped = weeklyData.slice(0, currentWeek + 1).reduce((sum, w) => sum + w.carsHelped, 0);
-      const remainingBalance = INITIAL_BALANCE - totalShared;
-      const percentOfBalanceKept = Math.round((remainingBalance / INITIAL_BALANCE) * 100);
-      const currentData = weeklyData[currentWeek];
-      const pledgeAtAccident = INITIAL_BALANCE - weeklyData.slice(0, 12).reduce((sum, w) => sum + w.sharing, 0);
-
-      const getHealthColor = () => {
-        if (percentOfBalanceKept >= 80) return '#22c55e';
-        if (percentOfBalanceKept >= 60) return colors.sage;
-        return '#f59e0b';
-      };
-
-      const coverageItems = [
-        { name: 'Crashes', icon: <IconCrash /> },
-        { name: 'Theft', icon: <IconTheft /> },
-        { name: 'Hail', icon: <IconHail /> },
-        { name: 'Glass', icon: <IconGlass /> },
-        { name: 'Roadside', icon: <IconRoadside /> },
-      ];
-
-      return (
-        <div style={{ backgroundColor: colors.cream, minHeight: '100vh' }}>
-          
-          {/* HEADER */}
-          <header style={{ 
-            padding: '20px 24px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            maxWidth: '1200px',
-            margin: '0 auto',
-          }}>
-            <div style={{ 
-              fontSize: '20px', 
-              fontWeight: '700', 
-              color: colors.navy,
-              letterSpacing: '-0.5px',
-            }}>
-              Good Driver Club
-            </div>
-            <button style={{
-              backgroundColor: colors.navy,
-              color: colors.white,
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: '500',
-              cursor: 'pointer',
-            }}>
-              Get the App
-            </button>
-          </header>
-
-          {/* HERO */}
-          <section style={{ 
-            padding: '60px 24px 80px',
-            textAlign: 'center',
-            maxWidth: '800px',
-            margin: '0 auto',
-          }}>
-            <h1 style={{ 
-              fontSize: '48px', 
-              fontWeight: '700', 
-              color: colors.charcoal,
-              lineHeight: '1.15',
-              margin: '0 0 20px 0',
-            }}>
-              Good drivers shouldn't pay for bad ones.
-            </h1>
-            <p style={{ 
-              fontSize: '20px', 
-              color: colors.grayMedium,
-              lineHeight: '1.6',
-              margin: '0 0 32px 0',
-              maxWidth: '600px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}>
-              94 out of 100 drivers go a whole year without filing a claim. But insurance charges all 100 the same.
-            </p>
-            <p style={{ 
-              fontSize: '18px', 
-              color: colors.navy,
-              fontWeight: '500',
-            }}>
-              We don't work that way.
-            </p>
-          </section>
-
-          {/* WHAT IS THIS */}
-          <section style={{ 
-            backgroundColor: colors.white,
-            padding: '60px 24px',
-          }}>
-            <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-              <h2 style={{ 
-                fontSize: '32px', 
-                fontWeight: '700', 
-                color: colors.charcoal,
-                marginBottom: '24px',
-                textAlign: 'center',
-              }}>
-                This isn't insurance.
-              </h2>
-              
-              <p style={{ 
-                fontSize: '18px', 
-                color: colors.charcoal,
-                lineHeight: '1.8',
-                marginBottom: '24px',
-                textAlign: 'center',
-                maxWidth: '500px',
-                margin: '0 auto 24px',
-              }}>
-                It's a club where members share repair costs.<br />
-                You get a quote.<br />
-                Here's a real one: $350.30.
-              </p>
-              
-              {/* Fixed-height box showing the real receipt math */}
-              <div style={{ 
-                backgroundColor: colors.cream,
-                borderRadius: '16px',
-                padding: '32px',
-                maxWidth: '500px',
-                margin: '0 auto 24px',
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '16px', borderBottom: `1px solid ${colors.creamDark}` }}>
-                  <span style={{ color: colors.grayMedium, fontSize: '17px' }}>20% Service fee</span>
-                  <span style={{ fontWeight: '600', color: colors.charcoal, fontSize: '17px' }}>$70.06</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: colors.grayMedium, fontSize: '17px' }}>80% Your balance</span>
-                  <span style={{ fontWeight: '600', color: colors.navy, fontSize: '17px' }}>$280.24</span>
-                </div>
-                <p style={{ fontSize: '14px', color: colors.grayMedium, marginTop: '20px', marginBottom: 0, lineHeight: '1.6' }}>
-                  The service fee keeps the lights on: advisors, shops, the whole operation. Your balance stays in your account.
-                </p>
-              </div>
-              
-              <p style={{ 
-                fontSize: '18px', 
-                color: colors.charcoal,
-                lineHeight: '1.7',
-                textAlign: 'center',
-                maxWidth: '600px',
-                margin: '0 auto',
-              }}>
-                Each week, a small amount gets shared from members' balances to cover repairs. No accidents that week? Nobody pays. There's a weekly cap, so it's always predictable.
-              </p>
-            </div>
-          </section>
-
-          {/* INTERACTIVE SECTION */}
-          <section style={{ 
-            backgroundColor: colors.cream,
-            padding: '80px 24px',
-          }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              
-              {/* Section headline */}
-              <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-                <h2 style={{ 
-                  fontSize: '32px', 
-                  fontWeight: '700', 
-                  color: colors.charcoal,
-                  margin: '0 0 12px 0',
-                }}>
-                  See it in action.
-                </h2>
-                <p style={{ 
-                  fontSize: '18px', 
-                  color: colors.grayMedium,
-                  margin: 0,
-                  lineHeight: '1.5',
-                }}>
-                  This is that same member's 6-month plan. Drag the slider to watch what happens.
-                </p>
-              </div>
-
-              {/* Main interactive area - two column on desktop */}
-              <div style={{ 
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                gap: '24px',
-                marginBottom: '24px',
-              }}>
-                
-                {/* LEFT COLUMN - The big number + stats */}
-                <div>
-                  {/* The big number */}
-                  <div style={{ 
-                    backgroundColor: colors.white,
-                    borderRadius: '20px',
-                    padding: '40px 32px',
-                    textAlign: 'center',
-                    marginBottom: '16px',
-                    border: `2px solid ${colors.navy}`,
-                  }}>
-                    <div style={{ fontSize: '14px', color: colors.grayMedium, marginBottom: '8px' }}>
-                      Your balance
-                    </div>
-                    <div style={{ 
-                      fontSize: '64px', 
-                      fontWeight: '700', 
-                      color: colors.navy,
-                      lineHeight: 1,
-                      marginBottom: '12px',
-                    }}>
-                      ${remainingBalance.toFixed(2)}
-                    </div>
-                    <div style={{ 
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      backgroundColor: colors.cream,
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      fontSize: '15px',
-                      color: getHealthColor(),
-                      fontWeight: '500',
-                    }}>
-                      <div style={{ 
-                        width: '10px', 
-                        height: '10px', 
-                        borderRadius: '50%', 
-                        backgroundColor: getHealthColor() 
-                      }}></div>
-                      {percentOfBalanceKept}% of balance remaining
-                    </div>
-                  </div>
-
-                  {/* Stats row */}
-                  <div style={{ 
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '12px',
-                  }}>
-                    <div style={{
-                      backgroundColor: colors.white,
-                      borderRadius: '12px',
-                      padding: '20px',
-                      textAlign: 'center',
-                    }}>
-                      <div style={{ fontSize: '28px', fontWeight: '600', color: colors.sage }}>${totalShared.toFixed(2)}</div>
-                      <div style={{ fontSize: '13px', color: colors.grayMedium, marginTop: '4px' }}>total shared</div>
-                    </div>
-                    <div style={{
-                      backgroundColor: colors.white,
-                      borderRadius: '12px',
-                      padding: '20px',
-                      textAlign: 'center',
-                    }}>
-                      <div style={{ fontSize: '28px', fontWeight: '600', color: colors.charcoal }}>{totalCarsHelped}</div>
-                      <div style={{ fontSize: '13px', color: colors.grayMedium, marginTop: '4px' }}>cars fixed</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* RIGHT COLUMN - Bar chart + story (FIXED HEIGHT) */}
-                <div>
-                  {/* Bar chart */}
-                  <div style={{ 
-                    backgroundColor: colors.white, 
-                    borderRadius: '16px', 
-                    padding: '24px',
-                    marginBottom: '16px',
-                  }}>
-                    <div style={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between', 
-                      alignItems: 'center',
-                      marginBottom: '16px',
-                    }}>
-                      <span style={{ fontSize: '16px', fontWeight: '600', color: colors.charcoal }}>
-                        Week {currentWeek + 1} of 25
-                      </span>
-                      <span style={{ fontSize: '15px', color: colors.grayMedium }}>
-                        {currentData.date}
-                      </span>
-                    </div>
-
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'flex-end', 
-                      gap: '4px',
-                      height: '80px',
-                      marginBottom: '12px',
-                    }}>
-                      {weeklyData.map((week, idx) => {
-                        const maxSharing = WEEKLY_CAP;
-                        const barHeight = week.sharing > 0 ? Math.max((week.sharing / maxSharing) * 100, 8) : 4;
-                        const isActive = idx <= currentWeek;
-                        const isCurrent = idx === currentWeek;
-                        const hitCap = week.sharing >= WEEKLY_CAP;
-                        
-                        return (
-                          <div
-                            key={idx}
-                            onClick={() => setCurrentWeek(idx)}
-                            style={{
-                              flex: 1,
-                              height: `${barHeight}%`,
-                              backgroundColor: isActive 
-                                ? (hitCap ? colors.sage : (week.sharing > 0 ? colors.navy : colors.creamDark))
-                                : '#e8e8e8',
-                              borderRadius: '3px',
-                              cursor: 'pointer',
-                              opacity: isActive ? 1 : 0.4,
-                              transition: 'all 0.15s ease',
-                              border: isCurrent ? `2px solid ${colors.charcoal}` : 'none',
-                              boxSizing: 'border-box',
-                            }}
-                          />
-                        );
-                      })}
-                    </div>
-
-                    <div style={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between',
-                      fontSize: '12px',
-                      color: colors.grayMedium,
-                    }}>
-                      <span>Week 1</span>
-                      <div style={{ display: 'flex', gap: '16px' }}>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ width: '10px', height: '10px', backgroundColor: colors.creamDark, borderRadius: '2px', display: 'inline-block' }}></span>
-                          $0
-                        </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ width: '10px', height: '10px', backgroundColor: colors.navy, borderRadius: '2px', display: 'inline-block' }}></span>
-                          shared
-                        </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span style={{ width: '10px', height: '10px', backgroundColor: colors.sage, borderRadius: '2px', display: 'inline-block' }}></span>
-                          cap
-                        </span>
-                      </div>
-                      <span>Week 25</span>
-                    </div>
-                  </div>
-
-                  {/* Story card - FIXED HEIGHT */}
-                  <div style={{
-                    backgroundColor: colors.white,
-                    borderRadius: '16px',
-                    padding: '24px',
-                    minHeight: '160px',
-                  }}>
-                    <div style={{ 
-                      fontSize: '22px', 
-                      fontWeight: '600', 
-                      color: colors.charcoal,
-                      marginBottom: '8px',
-                    }}>
-                      {currentData.story}
-                    </div>
-                    
-                    <div style={{ 
-                      fontSize: '16px', 
-                      color: colors.grayMedium,
-                      lineHeight: '1.5',
-                      marginBottom: '16px',
-                    }}>
-                      {currentData.detail}
-                    </div>
-
-                    {currentData.sharing > 0 ? (
-                      <div style={{
-                        padding: '14px 18px',
-                        backgroundColor: colors.cream,
-                        borderRadius: '10px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                        <span style={{ fontSize: '15px', color: colors.grayMedium }}>Your share this week</span>
-                        <span style={{ fontSize: '18px', fontWeight: '600', color: colors.sage }}>
-                          ${currentData.sharing.toFixed(2)}
-                        </span>
-                      </div>
-                    ) : (
-                      <div style={{
-                        padding: '14px 18px',
-                        backgroundColor: colors.cream,
-                        borderRadius: '10px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                        <span style={{ fontSize: '15px', color: colors.grayMedium }}>Your share this week</span>
-                        <span style={{ fontSize: '18px', fontWeight: '600', color: colors.grayMedium }}>
-                          $0.00
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Slider - full width */}
-              <div style={{ 
-                backgroundColor: colors.white, 
-                borderRadius: '16px', 
-                padding: '28px 32px',
-                marginBottom: '24px',
-                border: `2px solid ${colors.sage}`,
-              }}>
-                <div style={{ 
-                  fontSize: '14px', 
-                  color: colors.sage, 
-                  fontWeight: '600',
-                  marginBottom: '16px',
-                  textAlign: 'center',
-                }}>
-                  ← DRAG TO EXPLORE →
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={currentWeek}
-                  onChange={(e) => setCurrentWeek(parseInt(e.target.value))}
-                  style={{
-                    width: '100%',
-                    height: '14px',
-                    borderRadius: '7px',
-                    background: `linear-gradient(to right, ${colors.navy} 0%, ${colors.navy} ${(currentWeek / 24) * 100}%, ${colors.creamDark} ${(currentWeek / 24) * 100}%, ${colors.creamDark} 100%)`,
-                  }}
-                />
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  marginTop: '12px',
-                  fontSize: '13px',
-                  color: colors.grayMedium,
-                }}>
-                  <span>Start</span>
-                  <span>6 months later</span>
-                </div>
-              </div>
-
-              {/* FAQ sections - FIXED HEIGHT, only expand content area */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: '16px',
-              }}>
-                {/* FAQ 1 */}
-                <div style={{
-                  backgroundColor: colors.white,
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}>
-                  <button
-                    onClick={() => setShowHowItWorks(!showHowItWorks)}
-                    style={{
-                      width: '100%',
-                      padding: '20px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      border: 'none',
-                      backgroundColor: 'transparent',
-                      cursor: 'pointer',
-                      minHeight: '70px',
-                    }}
-                  >
-                    <span style={{ fontSize: '15px', color: colors.charcoal, fontWeight: '500', textAlign: 'left' }}>How does the 20%/80% work?</span>
-                    <span style={{ color: colors.grayMedium, fontSize: '20px', marginLeft: '12px' }}>{showHowItWorks ? '−' : '+'}</span>
-                  </button>
-                  {showHowItWorks && (
-                    <div style={{ padding: '0 20px 20px', fontSize: '14px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                      <p style={{ margin: '0 0 12px 0' }}><strong style={{ color: colors.charcoal }}>Your quote: $350.30</strong></p>
-                      <p style={{ margin: '0 0 12px 0' }}><strong style={{ color: colors.charcoal }}>20%</strong> ($70.06) is the service fee, paid upfront.</p>
-                      <p style={{ margin: '0' }}><strong style={{ color: colors.charcoal }}>80%</strong> ($280.24) stays in your bank. We draw from it when members need repairs. What's left at the end? Yours.</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* FAQ 2 */}
-                <div style={{
-                  backgroundColor: colors.white,
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}>
-                  <button
-                    onClick={() => setShowAccident(!showAccident)}
-                    style={{
-                      width: '100%',
-                      padding: '20px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      border: 'none',
-                      backgroundColor: 'transparent',
-                      cursor: 'pointer',
-                      minHeight: '70px',
-                    }}
-                  >
-                    <span style={{ fontSize: '15px', color: colors.charcoal, fontWeight: '500', textAlign: 'left' }}>What if I have an accident?</span>
-                    <span style={{ color: colors.grayMedium, fontSize: '20px', marginLeft: '12px' }}>{showAccident ? '−' : '+'}</span>
-                  </button>
-                  {showAccident && (
-                    <div style={{ padding: '0 20px 20px', fontSize: '14px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                      <p style={{ margin: '0 0 12px 0' }}>
-                        <strong style={{ color: colors.charcoal }}>Here's the part most people miss:</strong> If you have an accident, you use your balance first. That's what it's there for. Then the club helps cover the rest.
-                      </p>
-                      <p style={{ margin: '0 0 12px 0' }}>Say you're rear-ended in Week 12. Repair: $3,200.</p>
-                      <div style={{ backgroundColor: colors.cream, borderRadius: '8px', padding: '12px', marginBottom: '12px', fontSize: '13px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                          <span>Your out-of-pocket</span>
-                          <strong style={{ color: colors.charcoal }}>$500</strong>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                          <span>Your balance</span>
-                          <strong style={{ color: colors.charcoal }}>${pledgeAtAccident.toFixed(2)}</strong>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '6px', borderTop: `1px solid ${colors.creamDark}` }}>
-                          <span style={{ color: colors.navy }}>Club covers</span>
-                          <strong style={{ color: colors.navy }}>${(3200 - 500 - pledgeAtAccident).toFixed(2)}</strong>
-                        </div>
-                      </div>
-                      <p style={{ margin: '0' }}>No accident? You keep what's left. That's the deal.</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* FAQ 3 */}
-                <div style={{
-                  backgroundColor: colors.white,
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}>
-                  <button
-                    onClick={() => setShowCap(!showCap)}
-                    style={{
-                      width: '100%',
-                      padding: '20px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      border: 'none',
-                      backgroundColor: 'transparent',
-                      cursor: 'pointer',
-                      minHeight: '70px',
-                    }}
-                  >
-                    <span style={{ fontSize: '15px', color: colors.charcoal, fontWeight: '500', textAlign: 'left' }}>What's the weekly cap?</span>
-                    <span style={{ color: colors.grayMedium, fontSize: '20px', marginLeft: '12px' }}>{showCap ? '−' : '+'}</span>
-                  </button>
-                  {showCap && (
-                    <div style={{ padding: '0 20px 20px', fontSize: '14px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                      <p style={{ margin: 0 }}>
-                        No matter how many accidents happen, you never share more than <strong style={{ color: colors.charcoal }}>$10.51 per week</strong> (3.75% of your balance). 
-                        That's the ceiling. Green bars in the chart show weeks that hit the cap.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Final reveal at week 25 */}
-              {currentWeek === 24 && (
-                <div style={{
-                  marginTop: '24px',
-                  backgroundColor: colors.navy,
-                  borderRadius: '20px',
-                  padding: '48px 40px',
-                  textAlign: 'center',
-                  color: colors.white,
-                }}>
-                  <div style={{ fontSize: '16px', opacity: 0.8, marginBottom: '8px' }}>After 6 months, this member saved</div>
-                  <div style={{ fontSize: '72px', fontWeight: '700', marginBottom: '4px', lineHeight: 1 }}>66%</div>
-                  <div style={{ fontSize: '24px', opacity: 0.9, marginBottom: '24px' }}>of their quote</div>
-                  <div style={{ 
-                    display: 'inline-block',
-                    backgroundColor: 'rgba(255,255,255,0.15)', 
-                    borderRadius: '12px',
-                    padding: '16px 24px',
-                    marginBottom: '20px',
-                  }}>
-                    <span style={{ fontSize: '32px', fontWeight: '600' }}>${remainingBalance.toFixed(2)}</span>
-                    <span style={{ fontSize: '16px', opacity: 0.8, marginLeft: '8px' }}>back in their pocket</span>
-                  </div>
-                  <div style={{ fontSize: '15px', opacity: 0.6 }}>
-                    Paid ${(SERVICE_FEE + totalShared).toFixed(2)} instead of ${QUOTE.toFixed(2)}
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* WHAT WE COVER */}
-          <section style={{ 
-            backgroundColor: colors.white,
-            padding: '80px 24px',
-          }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              <h2 style={{ 
-                fontSize: '32px', 
-                fontWeight: '700', 
-                color: colors.charcoal,
-                marginBottom: '32px',
-                textAlign: 'center',
-              }}>
-                What we cover
-              </h2>
-              
-              <div style={{ 
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '16px',
-                marginBottom: '32px',
-              }}>
-                {coverageItems.map((item) => (
-                  <div key={item.name} style={{
-                    backgroundColor: colors.cream,
-                    borderRadius: '12px',
-                    padding: '20px 32px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                  }}>
-                    {item.icon}
-                    <span style={{ fontSize: '17px', fontWeight: '500', color: colors.charcoal }}>{item.name}</span>
-                  </div>
-                ))}
-              </div>
-              
-              <p style={{ 
-                fontSize: '16px', 
-                color: colors.grayMedium,
-                textAlign: 'center',
-                lineHeight: '1.6',
-              }}>
-                You'll have an out-of-pocket portion for claims. You keep your liability insurance. That part stays separate.
-              </p>
-            </div>
-          </section>
-
-          {/* WHO GETS IN */}
-          <section style={{ 
-            backgroundColor: colors.cream,
-            padding: '80px 24px',
-          }}>
-            <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-              <h2 style={{ 
-                fontSize: '32px', 
-                fontWeight: '700', 
-                color: colors.charcoal,
-                marginBottom: '32px',
-                textAlign: 'center',
-              }}>
-                Who gets in
-              </h2>
-              
-              <div style={{ 
-                backgroundColor: colors.white,
-                borderRadius: '20px',
-                padding: '40px',
-              }}>
-                <p style={{ 
-                  fontSize: '18px', 
-                  color: colors.charcoal,
-                  lineHeight: '1.7',
-                  marginBottom: '20px',
-                }}>
-                  Not everyone qualifies. We check your driving record once when you join. Bad drivers don't get in. That's what keeps the pool fair.
-                </p>
-                
-                <p style={{ 
-                  fontSize: '18px', 
-                  color: colors.charcoal,
-                  lineHeight: '1.7',
-                  marginBottom: '20px',
-                }}>
-                  After that, we leave you alone. No device in your car. No app tracking your speed.
-                </p>
-                
-                <p style={{ 
-                  fontSize: '18px', 
-                  color: colors.charcoal,
-                  lineHeight: '1.7',
-                  margin: 0,
-                }}>
-                  Good drivers tend to know other good drivers. That's why membership is by referral.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* WHEN SOMETHING HAPPENS */}
-          <section style={{ 
-            backgroundColor: colors.white,
-            padding: '80px 24px',
-          }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              <h2 style={{ 
-                fontSize: '32px', 
-                fontWeight: '700', 
-                color: colors.charcoal,
-                marginBottom: '32px',
-                textAlign: 'center',
-              }}>
-                When something happens
-              </h2>
-              
-              <div style={{ 
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '24px',
-              }}>
-                <div style={{
-                  backgroundColor: colors.cream,
-                  borderRadius: '20px',
-                  padding: '32px',
-                }}>
-                  <div style={{ marginBottom: '16px' }}>
-                    <IconPerson />
-                  </div>
-                  <div style={{ fontWeight: '600', color: colors.charcoal, marginBottom: '10px', fontSize: '18px' }}>One person</div>
-                  <div style={{ fontSize: '15px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                    One advisor handles your whole repair. No runaround.
-                  </div>
-                </div>
-                
-                <div style={{
-                  backgroundColor: colors.cream,
-                  borderRadius: '20px',
-                  padding: '32px',
-                }}>
-                  <div style={{ marginBottom: '16px' }}>
-                    <IconWrench />
-                  </div>
-                  <div style={{ fontWeight: '600', color: colors.charcoal, marginBottom: '10px', fontSize: '18px' }}>5,000+ shops</div>
-                  <div style={{ fontSize: '15px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                    Nationwide network. Lifetime warranty on parts and labor.
-                  </div>
-                </div>
-                
-                <div style={{
-                  backgroundColor: colors.cream,
-                  borderRadius: '20px',
-                  padding: '32px',
-                }}>
-                  <div style={{ marginBottom: '16px' }}>
-                    <IconPhone />
-                  </div>
-                  <div style={{ fontWeight: '600', color: colors.charcoal, marginBottom: '10px', fontSize: '18px' }}>Everything visible</div>
-                  <div style={{ fontSize: '15px', color: colors.grayMedium, lineHeight: '1.6' }}>
-                    Track your repair, see your balance, all in the app.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* FINAL CTA */}
-          <section style={{ 
-            backgroundColor: colors.navy,
-            padding: '100px 24px',
-            textAlign: 'center',
-          }}>
-            <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-              <h2 style={{ 
-                fontSize: '40px', 
-                fontWeight: '700', 
-                color: colors.white,
-                marginBottom: '20px',
-              }}>
-                Ready to stop overpaying?
-              </h2>
-              <p style={{ 
-                fontSize: '18px', 
-                color: 'rgba(255,255,255,0.8)',
-                marginBottom: '40px',
-                lineHeight: '1.6',
-              }}>
-                Get the app and enter an invitation code from a current member.
-              </p>
-              <button style={{
-                backgroundColor: colors.white,
-                color: colors.navy,
-                border: 'none',
-                padding: '18px 48px',
-                borderRadius: '12px',
-                fontSize: '18px',
-                fontWeight: '600',
-                cursor: 'pointer',
-              }}>
-                Get the App
-              </button>
-              <p style={{ 
-                fontSize: '15px', 
-                color: 'rgba(255,255,255,0.6)',
-                marginTop: '24px',
-              }}>
-                You'll need a code from someone already in the club.
-              </p>
-            </div>
-          </section>
-
-          {/* FOOTER */}
-          <footer style={{ 
-            backgroundColor: colors.charcoal,
-            padding: '48px 24px',
-            textAlign: 'center',
-          }}>
-            <div style={{ 
-              fontSize: '15px', 
-              color: 'rgba(255,255,255,0.5)',
-              marginBottom: '12px',
-            }}>
-              Good Driver Club is not an insurance company. This is a cost-sharing community.
-            </div>
-            <div style={{ 
-              fontSize: '14px', 
-              color: 'rgba(255,255,255,0.3)',
-            }}>
-              © 2025 Good Driver Club
-            </div>
-          </footer>
-
+  <!-- HOW IT WORKS -->
+  <section style="background-color: #FFFFFF; padding: 60px 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 32px; text-align: center;">
+        Here's how it works.
+      </h2>
+      
+      <div style="background-color: #F4F4F2; border-radius: 16px; padding: 32px; max-width: 500px; margin: 0 auto;">
+        <div style="font-size: 18px; font-weight: 600; color: #1A1A1A; margin-bottom: 20px; text-align: center;">
+          Your quote: $350.30
         </div>
-      );
-    }
+        <div style="display: flex; justify-content: space-between; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #E0E0E0;">
+          <span style="color: #555555; font-size: 17px;">20% Service fee</span>
+          <span style="font-weight: 600; color: #1A1A1A; font-size: 17px;">$70.06 <span style="font-weight: 400; color: #555555;">— paid upfront</span></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #555555; font-size: 17px;">80% Your balance</span>
+          <span style="font-weight: 600; color: #0277BD; font-size: 17px;">$280.24 <span style="font-weight: 400; color: #555555;">— stays in your bank</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<GDMLandingPage />);
+  <!-- VIDEO SECTION -->
+  <section style="background-color: #F4F4F2; padding: 80px 24px;">
+    <div style="max-width: 900px; margin: 0 auto;">
+      
+      <div style="text-align: center; margin-bottom: 48px;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin: 0 0 12px 0;">
+          Over 25 weeks, here's what actually happened.
+        </h2>
+      </div>
+
+      <!-- VIDEO - Replace the src with your hosted video URL -->
+      <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); margin-bottom: 48px;">
+        <video 
+          autoplay 
+          loop 
+          muted 
+          playsinline
+          style="width: 100%; display: block;"
+        >
+          <!-- 
+            IMPORTANT: Replace this src with your actual video URL.
+            Options:
+            1. Upload to your website and use: src="/videos/motion-graphics-video.mp4"
+            2. Upload to a service like Vimeo/YouTube and embed instead
+            3. Use a CDN like Cloudflare R2, AWS S3, or similar
+          -->
+          <source src="motion-graphics-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- FAQ sections -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        
+        <!-- FAQ 1 -->
+        <div style="background-color: #FFFFFF; border-radius: 16px; overflow: hidden;">
+          <button onclick="toggleFaq('faq1', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left;">
+            <span style="font-size: 15px; color: #1A1A1A; font-weight: 500;">What if I have an accident?</span>
+            <span style="color: #555555; font-size: 20px; margin-left: 12px;">+</span>
+          </button>
+          <div id="faq1" class="faq-content">
+            <p style="margin: 0 0 12px 0;">
+              You use your out-of-pocket amount and your remaining balance first. Then the club covers the rest.
+            </p>
+            <p style="margin: 0 0 12px 0;">Say you're rear-ended in Week 12. Repair: $3,200.</p>
+            <div style="background-color: #F4F4F2; border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 13px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span>Your out-of-pocket</span>
+                <strong style="color: #1A1A1A;">$500</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span>Your remaining balance</span>
+                <strong style="color: #1A1A1A;">$261.48</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-top: 6px; border-top: 1px solid #E0E0E0;">
+                <span style="color: #0277BD;">Club covers</span>
+                <strong style="color: #0277BD;">$2,438.52</strong>
+              </div>
+            </div>
+            <p style="margin: 0;">No accident? You keep what's left.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div style="background-color: #FFFFFF; border-radius: 16px; overflow: hidden;">
+          <button onclick="toggleFaq('faq2', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left;">
+            <span style="font-size: 15px; color: #1A1A1A; font-weight: 500;">Is there a limit to what I share each week?</span>
+            <span style="color: #555555; font-size: 20px; margin-left: 12px;">+</span>
+          </button>
+          <div id="faq2" class="faq-content">
+            <p style="margin: 0;">
+              Yes. Never more than <strong style="color: #1A1A1A;">7.5% of your balance</strong> in any given week.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE COVER -->
+  <section style="background-color: #FFFFFF; padding: 80px 24px;">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; text-align: center;">
+        What do we cover?
+      </h2>
+      
+      <p style="font-size: 18px; color: #1A1A1A; text-align: center; line-height: 1.6; margin-bottom: 32px;">
+        The same things your collision and comprehensive would cover:
+      </p>
+      
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 32px;">
+        <div style="background-color: #F4F4F2; border-radius: 12px; padding: 20px 32px; display: flex; align-items: center; gap: 12px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8v4M12 16h.01"></path>
+          </svg>
+          <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Crashes</span>
+        </div>
+        <div style="background-color: #F4F4F2; border-radius: 12px; padding: 20px 32px; display: flex; align-items: center; gap: 12px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Theft</span>
+        </div>
+        <div style="background-color: #F4F4F2; border-radius: 12px; padding: 20px 32px; display: flex; align-items: center; gap: 12px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"></path>
+            <circle cx="8" cy="17" r="1.5" fill="#1A1A1A"></circle>
+            <circle cx="12" cy="19" r="1.5" fill="#1A1A1A"></circle>
+            <circle cx="16" cy="17" r="1.5" fill="#1A1A1A"></circle>
+          </svg>
+          <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Hail</span>
+        </div>
+        <div style="background-color: #F4F4F2; border-radius: 12px; padding: 20px 32px; display: flex; align-items: center; gap: 12px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+            <line x1="12" y1="22" x2="12" y2="15.5"></line>
+            <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+          </svg>
+          <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Glass</span>
+        </div>
+        <div style="background-color: #F4F4F2; border-radius: 12px; padding: 20px 32px; display: flex; align-items: center; gap: 12px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+          </svg>
+          <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Roadside</span>
+        </div>
+      </div>
+      
+      <p style="font-size: 16px; color: #555555; text-align: center; line-height: 1.6;">
+        You keep your liability insurance. That part stays separate.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHO GETS IN -->
+  <section style="background-color: #F4F4F2; padding: 80px 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 32px; text-align: center;">
+        Who gets in?
+      </h2>
+      
+      <div style="background-color: #FFFFFF; border-radius: 20px; padding: 40px;">
+        <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; margin-bottom: 20px;">
+          Not everyone qualifies. We check your driving record when you join. Bad drivers don't get in. That's what keeps the community fair.
+        </p>
+        
+        <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; margin-bottom: 20px;">
+          After that, we leave you alone. No device in your car. No app tracking your speed.
+        </p>
+        
+        <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; margin: 0;">
+          Good drivers tend to know other good drivers. That's why membership is by referral only.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHEN SOMETHING HAPPENS -->
+  <section style="background-color: #FFFFFF; padding: 80px 24px;">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 32px; text-align: center;">
+        When something happens
+      </h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+        <div style="background-color: #F4F4F2; border-radius: 20px; padding: 32px;">
+          <div style="margin-bottom: 16px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0277BD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path>
+            </svg>
+          </div>
+          <div style="font-weight: 600; color: #1A1A1A; margin-bottom: 10px; font-size: 18px;">One person</div>
+          <div style="font-size: 15px; color: #555555; line-height: 1.6;">
+            One advisor handles your whole repair. No runaround.
+          </div>
+        </div>
+        
+        <div style="background-color: #F4F4F2; border-radius: 20px; padding: 32px;">
+          <div style="margin-bottom: 16px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0277BD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+          </div>
+          <div style="font-weight: 600; color: #1A1A1A; margin-bottom: 10px; font-size: 18px;">5,000+ shops</div>
+          <div style="font-size: 15px; color: #555555; line-height: 1.6;">
+            Nationwide network. Lifetime warranty on parts and labor.
+          </div>
+        </div>
+        
+        <div style="background-color: #F4F4F2; border-radius: 20px; padding: 32px;">
+          <div style="margin-bottom: 16px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0277BD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12" y2="18"></line>
+            </svg>
+          </div>
+          <div style="font-weight: 600; color: #1A1A1A; margin-bottom: 10px; font-size: 18px;">Everything visible</div>
+          <div style="font-size: 15px; color: #555555; line-height: 1.6;">
+            Track your repair, see your balance, all in the app.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="background-color: #0277BD; padding: 100px 24px; text-align: center;">
+    <div style="max-width: 600px; margin: 0 auto;">
+      <h2 style="font-size: 40px; font-weight: 700; color: #FFFFFF; margin-bottom: 20px;">
+        Get the app.
+      </h2>
+      <p style="font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6;">
+        You'll need a code from someone already in the club.
+      </p>
+      <button style="background-color: #FFFFFF; color: #0277BD; border: none; padding: 18px 48px; border-radius: 12px; font-size: 18px; font-weight: 600;">
+        Get the App
+      </button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background-color: #1A1A1A; padding: 48px 24px; text-align: center;">
+    <div style="font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 12px;">
+      Good Driver Club is not an insurance company. This is a cost-sharing community.
+    </div>
+    <div style="font-size: 14px; color: rgba(255,255,255,0.3);">
+      © 2025 Good Driver Club
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(id, button) {
+      const content = document.getElementById(id);
+      const icon = button.querySelector('span:last-child');
+      
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        icon.textContent = '+';
+      } else {
+        content.classList.add('open');
+        icon.textContent = '−';
+      }
+    }
   </script>
+
 </body>
 </html>
