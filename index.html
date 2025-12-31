@@ -29,6 +29,25 @@
     .faq-content.open {
       display: block;
     }
+    .tooltip {
+      position: relative;
+      border-bottom: 1px dotted #0277BD;
+      cursor: help;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1A1A1A;
+      color: #FFFFFF;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 100;
+    }
     
     /* GDM Brand Colors:
        Cloud Dancer (cream): #F4F4F2
@@ -59,16 +78,20 @@
       Your insurance bill doesn't seem to know that.
     </p>
     <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; max-width: 550px; margin: 0 auto;">
-      We're not an insurance company. We're a membership club for good drivers that saves them 30-40% on collision and comprehensive.
+      We're not an insurance company. We're a membership club where good drivers can save up to 40%.
     </p>
   </section>
 
   <!-- HOW IT WORKS -->
   <section style="background-color: #FFFFFF; padding: 60px 24px;">
     <div style="max-width: 800px; margin: 0 auto;">
-      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 32px; text-align: center;">
+      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px; text-align: center;">
         Here's how it works.
       </h2>
+      
+      <p style="font-size: 14px; color: #777777; font-style: italic; text-align: center; margin-bottom: 32px;">
+        One member's experience. Your results will vary.
+      </p>
       
       <div style="background-color: #F4F4F2; border-radius: 16px; padding: 32px; max-width: 500px; margin: 0 auto;">
         <div style="font-size: 18px; font-weight: 600; color: #1A1A1A; margin-bottom: 20px; text-align: center;">
@@ -92,12 +115,12 @@
       
       <div style="text-align: center; margin-bottom: 48px;">
         <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin: 0 0 12px 0;">
-          Over 25 weeks, here's what actually happened.
+          Over 6 months, here's what actually happened.
         </h2>
       </div>
 
       <!-- VIDEO - Replace the src with your hosted video URL -->
-      <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); margin-bottom: 48px;">
+      <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); margin-bottom: 32px;">
         <video 
           autoplay 
           loop 
@@ -105,16 +128,25 @@
           playsinline
           style="width: 100%; display: block;"
         >
-          <!-- 
-            IMPORTANT: Replace this src with your actual video URL.
-            Options:
-            1. Upload to your website and use: src="/videos/motion-graphics-video.mp4"
-            2. Upload to a service like Vimeo/YouTube and embed instead
-            3. Use a CDN like Cloudflare R2, AWS S3, or similar
-          -->
           <source src="motion-graphics-video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+      </div>
+
+      <!-- Summary stats -->
+      <div style="background-color: #FFFFFF; border-radius: 16px; padding: 24px 32px; max-width: 500px; margin: 0 auto 32px auto;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #555555; font-size: 15px;">Total Weekly Sharing Paid (25 weeks)</span>
+          <span style="font-weight: 600; color: #1A1A1A; font-size: 15px;">$192.11</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #555555; font-size: 15px;"><span class="tooltip" data-tip="Pledge Amount minus total shared">Remaining Pledge Balance</span> Returned</span>
+          <span style="font-weight: 600; color: #0277BD; font-size: 15px;">$193.27</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid #E0E0E0;">
+          <span style="color: #1A1A1A; font-size: 15px; font-weight: 600;">Total Savings</span>
+          <span style="font-weight: 700; color: #0277BD; font-size: 15px;">~40%</span>
+        </div>
       </div>
 
       <!-- FAQ sections -->
@@ -128,36 +160,49 @@
           </button>
           <div id="faq1" class="faq-content">
             <p style="margin: 0 0 12px 0;">
-              You use your out-of-pocket amount and your remaining balance first. Then the club covers the rest.
+              You use your <strong>Out-of-Pocket Expense</strong> and your <strong>Remaining Pledge Balance</strong> first. Then the club shares the rest.
             </p>
             <p style="margin: 0 0 12px 0;">Say you're rear-ended in Week 12. Repair: $3,200.</p>
             <div style="background-color: #F4F4F2; border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 13px;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                <span>Your out-of-pocket</span>
-                <strong style="color: #1A1A1A;">$500</strong>
+                <span>Out-of-Pocket Expense</span>
+                <strong style="color: #1A1A1A;">$500.00</strong>
               </div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                <span>Your remaining balance</span>
-                <strong style="color: #1A1A1A;">$261.48</strong>
+                <span>Remaining Pledge Balance</span>
+                <strong style="color: #1A1A1A;">$292.36</strong>
               </div>
-              <div style="display: flex; justify-content: space-between; padding-top: 6px; border-top: 1px solid #E0E0E0;">
-                <span style="color: #0277BD;">Club covers</span>
-                <strong style="color: #0277BD;">$2,438.52</strong>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px; padding-top: 6px; border-top: 1px solid #E0E0E0;">
+                <span style="font-weight: 600;">You pay</span>
+                <strong style="color: #1A1A1A;">$792.36</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #0277BD; font-weight: 600;">Club shares</span>
+                <strong style="color: #0277BD;">$2,407.64</strong>
               </div>
             </div>
-            <p style="margin: 0;">No accident? You keep what's left.</p>
+            <p style="margin: 0;">No accident over the six months? You keep what's left.</p>
           </div>
         </div>
 
         <!-- FAQ 2 -->
         <div style="background-color: #FFFFFF; border-radius: 16px; overflow: hidden;">
           <button onclick="toggleFaq('faq2', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left;">
-            <span style="font-size: 15px; color: #1A1A1A; font-weight: 500;">Is there a limit to what I share each week?</span>
+            <span style="font-size: 15px; color: #1A1A1A; font-weight: 500;">How does weekly sharing work?</span>
             <span style="color: #555555; font-size: 20px; margin-left: 12px;">+</span>
           </button>
           <div id="faq2" class="faq-content">
+            <p style="margin: 0 0 12px 0;">
+              Each week, the club shares repair costs for Members who need them.
+            </p>
+            <p style="margin: 0 0 12px 0;">
+              Your share shows up in the app: the photos, the invoices, the amounts.
+            </p>
+            <p style="margin: 0 0 12px 0;">
+              Some weeks it's $8. Some weeks it's $15. It depends on what happened that week.
+            </p>
             <p style="margin: 0;">
-              Yes. Never more than <strong style="color: #1A1A1A;">7.5% of your balance</strong> in any given week.
+              Your share will never be more than <strong style="color: #1A1A1A;">7.5% of your Pledge Amount</strong> in any given week.
             </p>
           </div>
         </div>
@@ -166,15 +211,15 @@
     </div>
   </section>
 
-  <!-- WHAT WE COVER -->
+  <!-- WHAT'S ELIGIBLE -->
   <section style="background-color: #FFFFFF; padding: 80px 24px;">
     <div style="max-width: 900px; margin: 0 auto;">
       <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; text-align: center;">
-        What do we cover?
+        What's eligible for sharing?
       </h2>
       
       <p style="font-size: 18px; color: #1A1A1A; text-align: center; line-height: 1.6; margin-bottom: 32px;">
-        The same things your collision and comprehensive would cover:
+        The same things <strong>collision and comprehensive</strong> typically handle:
       </p>
       
       <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 32px;">
@@ -209,12 +254,6 @@
           </svg>
           <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Glass</span>
         </div>
-        <div style="background-color: #F4F4F2; border-radius: 12px; padding: 20px 32px; display: flex; align-items: center; gap: 12px;">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-          </svg>
-          <span style="font-size: 17px; font-weight: 500; color: #1A1A1A;">Roadside</span>
-        </div>
       </div>
       
       <p style="font-size: 16px; color: #555555; text-align: center; line-height: 1.6;">
@@ -232,11 +271,11 @@
       
       <div style="background-color: #FFFFFF; border-radius: 20px; padding: 40px;">
         <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; margin-bottom: 20px;">
-          Not everyone qualifies. We check your driving record when you join. Bad drivers don't get in. That's what keeps the community fair.
+          We check your driving record when you join. Bad drivers don't qualify.
         </p>
         
         <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; margin-bottom: 20px;">
-          After that, we leave you alone. No device in your car. No app tracking your speed.
+          After that, we leave you alone.
         </p>
         
         <p style="font-size: 18px; color: #1A1A1A; line-height: 1.7; margin: 0;">
@@ -275,7 +314,7 @@
           </div>
           <div style="font-weight: 600; color: #1A1A1A; margin-bottom: 10px; font-size: 18px;">5,000+ shops</div>
           <div style="font-size: 15px; color: #555555; line-height: 1.6;">
-            Nationwide network. Lifetime warranty on parts and labor.
+            Lifetime warranty on parts and labor.
           </div>
         </div>
         
@@ -288,12 +327,153 @@
           </div>
           <div style="font-weight: 600; color: #1A1A1A; margin-bottom: 10px; font-size: 18px;">Everything visible</div>
           <div style="font-size: 15px; color: #555555; line-height: 1.6;">
-            Track your repair, see your balance, all in the app.
+            Track your repair, see your <span class="tooltip" data-tip="Pledge Amount minus what's been shared">Remaining Pledge Balance</span>, all in the app.
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- TESTIMONIALS -->
+  <section style="background-color: #F4F4F2; padding: 80px 0; overflow: hidden;">
+    <div style="max-width: 800px; margin: 0 auto 40px; text-align: center; padding: 0 24px;">
+      <h2 style="font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px;">
+        What members are saying
+      </h2>
+    </div>
+    
+    <div class="testimonial-track" style="display: flex; gap: 24px; animation: scroll 30s linear infinite;">
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Sarah M.</div>
+            <div style="font-size: 13px; color: #888888;">Denver, CO</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "8 months in. Every week I see the accident photos, the invoices, the amounts. More transparent than any insurance I've had."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Marcus T.</div>
+            <div style="font-size: 13px; color: #888888;">Austin, TX</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "Got rear-ended in month four. One person handled everything. Car fixed in 10 days. No runaround."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Jennifer L.</div>
+            <div style="font-size: 13px; color: #888888;">Phoenix, AZ</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "My Geico quote was $1,100 for six months. With GDC, I paid about $650 total. Kept the rest."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">David K.</div>
+            <div style="font-size: 13px; color: #888888;">Seattle, WA</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "Seeing $8 leave my account felt weird at first. Then I did the math. I'm paying way less overall."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Michelle R.</div>
+            <div style="font-size: 13px; color: #888888;">Portland, OR</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "There's a cap — never more than 7.5% of your balance in one week. No crazy surprises."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Brian W.</div>
+            <div style="font-size: 13px; color: #888888;">San Diego, CA</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "My brother-in-law referred me. I gave him a hard time. Six months later, I'm paying less than I was with State Farm."
+        </p>
+      </div>
+      
+      <!-- Duplicate for seamless loop -->
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Sarah M.</div>
+            <div style="font-size: 13px; color: #888888;">Denver, CO</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "8 months in. Every week I see the accident photos, the invoices, the amounts. More transparent than any insurance I've had."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Marcus T.</div>
+            <div style="font-size: 13px; color: #888888;">Austin, TX</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "Got rear-ended in month four. One person handled everything. Car fixed in 10 days. No runaround."
+        </p>
+      </div>
+      
+      <div style="flex-shrink: 0; width: 320px; background-color: #FFFFFF; border-radius: 16px; padding: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 44px; height: 44px; background-color: #E0E0E0; border-radius: 50%;"></div>
+          <div>
+            <div style="font-weight: 600; color: #1A1A1A; font-size: 15px;">Jennifer L.</div>
+            <div style="font-size: 13px; color: #888888;">Phoenix, AZ</div>
+          </div>
+        </div>
+        <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
+          "My Geico quote was $1,100 for six months. With GDC, I paid about $650 total. Kept the rest."
+        </p>
+      </div>
+      
+    </div>
+  </section>
+
+  <style>
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-320px * 6 - 24px * 6)); }
+    }
+    .testimonial-track:hover {
+      animation-play-state: paused;
+    }
+  </style>
 
   <!-- FINAL CTA -->
   <section style="background-color: #0277BD; padding: 100px 24px; text-align: center;">
@@ -301,8 +481,11 @@
       <h2 style="font-size: 40px; font-weight: 700; color: #FFFFFF; margin-bottom: 20px;">
         Get the app.
       </h2>
-      <p style="font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6;">
+      <p style="font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 12px; line-height: 1.6;">
         You'll need a code from someone already in the club.
+      </p>
+      <p style="font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.6;">
+        Good drivers tend to know other good drivers.
       </p>
       <button style="background-color: #FFFFFF; color: #0277BD; border: none; padding: 18px 48px; border-radius: 12px; font-size: 18px; font-weight: 600;">
         Get the App
