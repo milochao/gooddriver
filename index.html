@@ -25,6 +25,7 @@
       font-size: 14px;
       color: #555555;
       line-height: 1.6;
+      overflow: visible;
     }
     .faq-content.open {
       display: block;
@@ -45,8 +46,22 @@
       padding: 8px 12px;
       border-radius: 6px;
       font-size: 12px;
-      white-space: nowrap;
-      z-index: 100;
+      max-width: 220px;
+      white-space: normal;
+      text-align: center;
+      z-index: 9999;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .tooltip:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #1A1A1A;
+      z-index: 9999;
     }
     
     /* GDM Brand Colors:
@@ -95,14 +110,14 @@
       
       <div style="background-color: #F4F4F2; border-radius: 16px; padding: 32px; max-width: 500px; margin: 0 auto;">
         <div style="font-size: 18px; font-weight: 600; color: #1A1A1A; margin-bottom: 20px; text-align: center;">
-          Your quote: $350.30
+          Their quote: $350.30
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #E0E0E0;">
-          <span style="color: #555555; font-size: 17px;">20% Service fee</span>
+          <span style="color: #555555; font-size: 17px;">20% <span class="tooltip" data-tip="Paid upfront to GDC">Service Fee</span></span>
           <span style="font-weight: 600; color: #1A1A1A; font-size: 17px;">$70.06 <span style="font-weight: 400; color: #555555;">— paid upfront</span></span>
         </div>
         <div style="display: flex; justify-content: space-between;">
-          <span style="color: #555555; font-size: 17px;">80% Your balance</span>
+          <span style="color: #555555; font-size: 17px;">80% <span class="tooltip" data-tip="Maximum you commit to share over 6 months">Pledge Amount</span></span>
           <span style="font-weight: 600; color: #0277BD; font-size: 17px;">$280.24 <span style="font-weight: 400; color: #555555;">— stays in your bank</span></span>
         </div>
       </div>
@@ -136,16 +151,20 @@
       <!-- Summary stats -->
       <div style="background-color: #FFFFFF; border-radius: 16px; padding: 24px 32px; max-width: 500px; margin: 0 auto 32px auto;">
         <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-          <span style="color: #555555; font-size: 15px;">Total Weekly Sharing Paid (25 weeks)</span>
-          <span style="font-weight: 600; color: #1A1A1A; font-size: 15px;">$192.11</span>
+          <span style="color: #555555; font-size: 15px;"><span class="tooltip" data-tip="20% of quote, paid upfront">Service Fee</span></span>
+          <span style="font-weight: 600; color: #1A1A1A; font-size: 15px;">$70.06</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-          <span style="color: #555555; font-size: 15px;"><span class="tooltip" data-tip="Pledge Amount minus total shared">Remaining Pledge Balance</span> Returned</span>
-          <span style="font-weight: 600; color: #0277BD; font-size: 15px;">$193.27</span>
+          <span style="color: #555555; font-size: 15px;"><span class="tooltip" data-tip="Weekly contributions to help other members">Weekly Sharing</span> (25 weeks)</span>
+          <span style="font-weight: 600; color: #1A1A1A; font-size: 15px;">$139.74</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding-top: 12px; border-top: 1px solid #E0E0E0;">
+          <span style="color: #1A1A1A; font-size: 15px; font-weight: 600;">Total Paid</span>
+          <span style="font-weight: 600; color: #1A1A1A; font-size: 15px;">$209.80</span>
         </div>
         <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid #E0E0E0;">
-          <span style="color: #1A1A1A; font-size: 15px; font-weight: 600;">Total Savings</span>
-          <span style="font-weight: 700; color: #0277BD; font-size: 15px;">~40%</span>
+          <span style="color: #0277BD; font-size: 15px; font-weight: 600;">Savings</span>
+          <span style="font-weight: 700; color: #0277BD; font-size: 15px;">$140.50 <span style="font-weight: 400; color: #555555;">(~40%)</span></span>
         </div>
       </div>
 
@@ -153,32 +172,32 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
         
         <!-- FAQ 1 -->
-        <div style="background-color: #FFFFFF; border-radius: 16px; overflow: hidden;">
-          <button onclick="toggleFaq('faq1', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left;">
+        <div style="background-color: #FFFFFF; border-radius: 16px;">
+          <button onclick="toggleFaq('faq1', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left; border-radius: 16px;">
             <span style="font-size: 15px; color: #1A1A1A; font-weight: 500;">What if I have an accident?</span>
             <span style="color: #555555; font-size: 20px; margin-left: 12px;">+</span>
           </button>
           <div id="faq1" class="faq-content">
             <p style="margin: 0 0 12px 0;">
-              You use your <strong>Out-of-Pocket Expense</strong> and your <strong>Remaining Pledge Balance</strong> first. Then the club shares the rest.
+              You use your <strong><span class="tooltip" data-tip="Fixed amount you choose when joining">Out-of-Pocket Expense</span></strong> and your <strong><span class="tooltip" data-tip="What's left of your Pledge Amount">Remaining Pledge Balance</span></strong> first. Then the club shares the rest.
             </p>
             <p style="margin: 0 0 12px 0;">Say you're rear-ended in Week 12. Repair: $3,200.</p>
             <div style="background-color: #F4F4F2; border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 13px;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                <span>Out-of-Pocket Expense</span>
+                <span><span class="tooltip" data-tip="Fixed amount you choose when joining">Out-of-Pocket Expense</span></span>
                 <strong style="color: #1A1A1A;">$500.00</strong>
               </div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                <span>Remaining Pledge Balance</span>
-                <strong style="color: #1A1A1A;">$292.36</strong>
+                <span><span class="tooltip" data-tip="What's left of your Pledge Amount">Remaining Pledge Balance</span></span>
+                <strong style="color: #1A1A1A;">$213.16</strong>
               </div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px; padding-top: 6px; border-top: 1px solid #E0E0E0;">
                 <span style="font-weight: 600;">You pay</span>
-                <strong style="color: #1A1A1A;">$792.36</strong>
+                <strong style="color: #1A1A1A;">$713.16</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
                 <span style="color: #0277BD; font-weight: 600;">Club shares</span>
-                <strong style="color: #0277BD;">$2,407.64</strong>
+                <strong style="color: #0277BD;">$2,486.84</strong>
               </div>
             </div>
             <p style="margin: 0;">No accident over the six months? You keep what's left.</p>
@@ -186,23 +205,23 @@
         </div>
 
         <!-- FAQ 2 -->
-        <div style="background-color: #FFFFFF; border-radius: 16px; overflow: hidden;">
-          <button onclick="toggleFaq('faq2', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left;">
+        <div style="background-color: #FFFFFF; border-radius: 16px;">
+          <button onclick="toggleFaq('faq2', this)" style="width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; border: none; background-color: transparent; min-height: 70px; text-align: left; border-radius: 16px;">
             <span style="font-size: 15px; color: #1A1A1A; font-weight: 500;">How does weekly sharing work?</span>
             <span style="color: #555555; font-size: 20px; margin-left: 12px;">+</span>
           </button>
           <div id="faq2" class="faq-content">
             <p style="margin: 0 0 12px 0;">
-              Each week, the club shares repair costs for Members who need them.
+              Each week, the club shares repair costs for members who need them.
             </p>
             <p style="margin: 0 0 12px 0;">
               Your share shows up in the app: the photos, the invoices, the amounts.
             </p>
             <p style="margin: 0 0 12px 0;">
-              Some weeks it's $8. Some weeks it's $15. It depends on what happened that week.
+              Some weeks it's just a few dollars. Other weeks it may be more. Sharing varies based on actual costs.
             </p>
             <p style="margin: 0;">
-              Your share will never be more than <strong style="color: #1A1A1A;">7.5% of your Pledge Amount</strong> in any given week.
+              Your share will never be more than <strong style="color: #1A1A1A;">7.5% of your <span class="tooltip" data-tip="Maximum you commit to share over 6 months">Pledge Amount</span></strong> in any given week.
             </p>
           </div>
         </div>
@@ -392,7 +411,7 @@
           </div>
         </div>
         <p style="font-size: 15px; color: #555555; line-height: 1.6; margin: 0;">
-          "Seeing $8 leave my account felt weird at first. Then I did the math. I'm paying way less overall."
+          "Seeing a few dollars leave my account each week felt weird at first. Then I did the math. I'm paying way less overall."
         </p>
       </div>
       
